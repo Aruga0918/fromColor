@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:from_color/widgets/screens/closet/closet_screen.dart';
 import 'package:from_color/widgets/screens/home/home_screen.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,8 @@ class RootScreen extends StatelessWidget {
               builder: (context) {
                 return CupertinoPageScaffold(
                   child: [
-                    HomeScreen()
+                    HomeScreen(),
+                    ClosetScreen()
                   ][index],
                 );
               },
@@ -36,15 +38,15 @@ class RootScreen extends StatelessWidget {
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined),
-                  activeIcon: Icon(Icons.home, color: Colors.deepOrange)
+                  activeIcon: Icon(Icons.home, color: Colors.black)
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.checkroom_rounded),
-                  activeIcon: Icon(Icons.checkroom, color: Colors.deepOrange)
+                  activeIcon: Icon(Icons.checkroom, color: Colors.black)
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person_outline),
-                  activeIcon: Icon(Icons.person, color: Colors.deepOrange)
+                  activeIcon: Icon(Icons.person, color: Colors.black)
               ),
             ],
           ),
