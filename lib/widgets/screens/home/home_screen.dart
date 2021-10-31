@@ -16,6 +16,18 @@ class HomeScreen extends ConsumerWidget {
     // final selectedShoesColor = watch(shoesColorProvider);
     final SelectedColors selectedColor = watch(colorProvider);
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+            "Palette",
+          style: TextStyle(
+            fontFamily: "Roboto",
+            fontWeight: FontWeight.bold,
+            fontSize: 26
+
+          ),
+        ),
+        shadowColor: Colors.transparent,
+      ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
