@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:from_color/models/entities/cloth_display.dart';
+import 'package:from_color/widgets/screens/closet/closet_add_dialog.dart';
 import 'package:from_color/widgets/screens/closet/components/closet_line.dart';
 
 class ClosetScreen extends StatelessWidget {
@@ -23,7 +24,11 @@ class ClosetScreen extends StatelessWidget {
           ClosetLine(
             clothCategory: "アウター",
             ownItems: ClothDisplay.MockOuters,
-            onTap: (){},
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => ClosetAddDialog()
+              ));
+            },
           ),
           ClosetLine(
             clothCategory: "トップス",

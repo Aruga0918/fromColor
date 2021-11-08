@@ -37,6 +37,7 @@ class ClosetLine extends StatelessWidget {
                 children: [
                   Text(clothCategory),
                   InkWell(
+                    onTap: onTap,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [

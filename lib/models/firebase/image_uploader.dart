@@ -31,24 +31,27 @@ class ImageUploader {
           ) ;
         });
 
-    final picker=ImagePicker();
+    final picker = ImagePicker();
     var  imgSrc;
 
-    if (selectType==null){
+    if (selectType == null){
       return null;
     }
     //カメラで撮影
-    else if (selectType==CAMERA){
-      imgSrc=ImageSource.camera;
+    else if (selectType == CAMERA){
+      imgSrc = ImageSource.camera;
+      print(imgSrc);
     }
     //ギャラリーから選択
-    else if (selectType==GALLERY){
-      imgSrc=ImageSource.gallery;
+    else if (selectType == GALLERY){
+      imgSrc = ImageSource.gallery;
+      print(imgSrc);
     }
 
-    final pickedFile = await picker.pickImage(source: imgSrc);
+    final PickedFile? pickedFile = await picker.getImage(source: imgSrc);
+    print(pickedFile);
 
-    if (pickedFile==null){
+    if (pickedFile == null){
       return null;
     }
     else{

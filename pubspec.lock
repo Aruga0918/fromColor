@@ -267,6 +267,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.0"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -363,6 +370,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
+  flutter_hooks:
+    dependency: transitive
+    description:
+      name: flutter_hooks
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.18.0"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -384,6 +398,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.14.0+3"
+  flutter_signin_button:
+    dependency: "direct main"
+    description:
+      name: flutter_signin_button
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -408,6 +429,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: transitive
+    description:
+      name: font_awesome_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.2.0"
   freezed:
     dependency: "direct main"
     description:
@@ -443,6 +471,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  hooks_riverpod:
+    dependency: "direct main"
+    description:
+      name: hooks_riverpod
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.14.0+5"
   http:
     dependency: transitive
     description:

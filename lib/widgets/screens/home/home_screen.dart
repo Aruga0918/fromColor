@@ -10,11 +10,8 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    // final selectedOuterColor = watch(outerColorProvider);
-    // final selectedInnerColor = watch(innerColorProvider);
-    // final selectedBottomsColor = watch(bottomsColorProvider);
-    // final selectedShoesColor = watch(shoesColorProvider);
-    final SelectedColors selectedColor = watch(colorProvider);
+    final state = watch(colorProvider);
+    final SelectedColors selectedColor = state.selectedColors;
     return Scaffold(
       appBar: AppBar(
         title: Text(
