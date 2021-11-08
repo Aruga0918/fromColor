@@ -1,4 +1,12 @@
 class ColorList {
+
+  static const nameList = [
+    red, peachPink, pink, purple, lightPurple, lavender, lightLavender, navy, lightNavy,
+    deepBlue, blue, skyBlue, lightBlue, turquoise, emerald, deepGreen, green, khaki, lightGreen,
+    yellowKhaki, yellow, orange, salmonPink, burgundy, brown, lightBrown, lightGrey, dark,
+    silverBlue, beige
+  ];
+
   static const red = [
     "fff44336", "ffe53935", "ffd32f2f", "ffc62828", "ffb71c1c", "ffd50000", "ffff3d00"
   ];
@@ -114,7 +122,7 @@ class ColorList {
     "ffe91e63", "ffd81b60", "ffc2185b", "ffad1457", "ff880e4f", "ffc51162"// this line from initial pink
   ];
 
-  static const Brown = [
+  static const brown = [
     "ff795548", "ff6d4c41", "ff5d4037", "ff4e342e", "ff3e2723"
   ];
 
