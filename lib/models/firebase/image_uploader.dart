@@ -61,13 +61,13 @@ class ImageUploader {
 
   //Firebase Storageに画像を保存
   //sourcePathには先に取得したローカルパス、uploadFileNameには一意になるような名前を入れます。
-  Future<String?> uploadFile(String sourcePath, String uploadFileName) async{
+  static Future<String?> uploadFile({required String sourcePath, required String userId, required String category}) async{
 
     final FirebaseStorage storage = FirebaseStorage.instance;
-    Reference ref = storage.ref().child("closet");  //保存するフォルダ
+    Reference ref = storage.ref().child("closet/$userId/$category");  //保存するフォルダ
 
     io.File file = io.File(sourcePath);
-    UploadTask task = ref.child(uploadFileName).putFile(file);
+    UploadTask task = ref.putFile(file);
 
     try{
       final snapshot = await task;
@@ -90,16 +90,27 @@ class ImageUploader {
         case 'storage/unknown':
           print('予期せぬエラーが生じました');
           return null;
+        default:
+          print('原因不明のエラーです');
+          return null;
       }
     }
   }
 
   //画像のファイルパスを保存
   //最後に、上記のローカルの画像パスとstorageに保存したパスをfirestoreに（String型で）保存します。
-  Future<void> addFilePath({required String userId, required String localPath, required String remotePath, required String colorValue})async {
+  static Future<void> addFilePath({
+    required String userId,
+    required String category,
+    required String subCategory,
+    required String colorCategory,
+    required String localPath,
+    required String remotePath,
+    required String colorValue,
+  })async {
 
     CollectionReference users =
-    FirebaseFirestore.instance.collection('usersClosetPath');
+    FirebaseFirestore.instance.collection('usersCloset/$userId/$category/$subCategory/$colorCategory');
 
     await users.doc(userId)
         .set(

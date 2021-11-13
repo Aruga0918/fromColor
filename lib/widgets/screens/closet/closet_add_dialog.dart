@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:from_color/riverpods/upload_color_notifier.dart';
-import 'package:from_color/riverpods/upload_image_notifier.dart';
+import 'package:from_color/riverpods/upload_data_notifier.dart';
 
 class ClosetAddDialog extends ConsumerWidget {
   const ClosetAddDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final selectedColor = watch(uploadColorProvider);
-    final selectedImage = watch(uploadImageProvider);
+    final selectedColor = watch(uploadDataProvider).itemColorValue;
+    final selectedImage = watch(uploadDataProvider).localImagePath;
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +37,7 @@ class ClosetAddDialog extends ConsumerWidget {
                 width: MediaQuery.of(context).size.width * 0.5,
                 height: MediaQuery.of(context).size.width * 0.5,
                 child: InkWell(
-                  onTap: () => context.read(uploadImageProvider.notifier).getImagePath(context: context),
+                  onTap: () => context.read(uploadDataProvider.notifier).getImagePath(context: context),
                   child: selectedImage.isNotEmpty
                   ? Image.asset(selectedImage)
                   : Icon(
@@ -55,7 +54,7 @@ class ClosetAddDialog extends ConsumerWidget {
                     Text("Color"),
                     Spacer(),
                     InkWell(
-                      onTap: () => context.read(uploadColorProvider.notifier).showColorPicker(context),
+                      onTap: () => context.read(uploadDataProvider.notifier).showColorPicker(context),
                       child: CircleAvatar(
                         backgroundColor: Colors.black26,
                         radius: MediaQuery.of(context).size.width * 0.05,

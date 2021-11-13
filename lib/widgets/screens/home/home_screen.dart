@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/models/entities/selected_colors.dart';
 import 'package:from_color/riverpods/color_notifier.dart';
+import 'package:from_color/riverpods/login_notifier.dart';
 import 'package:from_color/widgets/screens/home/components/color_display_bar.dart';
 import 'package:from_color/widgets/screens/home/components/figure_woman.dart';
 
@@ -10,8 +11,9 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final state = watch(colorProvider);
-    final SelectedColors selectedColor = state.selectedColors;
+    final SelectedColors selectedColor = watch(colorProvider).selectedColors;
+    final bool isLogin = watch(loginProvider).isLogin;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -50,21 +52,25 @@ class HomeScreen extends ConsumerWidget {
                     selectedColor: selectedColor.outerColor,
                     clothType: "アウター",
                     onTap: () => context.read(colorProvider.notifier).showOuterColorPicker(context),
+                    isLogin: isLogin,
                   ),
                   ColorDisplayBar(
                     selectedColor: selectedColor.innerColor,
                     clothType: "トップス",
                     onTap: () => context.read(colorProvider.notifier).showInnerColorPicker(context),
+                    isLogin: isLogin,
                   ),
                   ColorDisplayBar(
                     selectedColor: selectedColor.bottomsColor,
                     clothType: "ボトムス",
                     onTap: () => context.read(colorProvider.notifier).showBottomsColorPicker(context),
+                    isLogin: isLogin,
                   ),
                   ColorDisplayBar(
                     selectedColor: selectedColor.shoesColor,
                     clothType: "靴",
                     onTap: () => context.read(colorProvider.notifier).showShoesColorPicker(context),
+                    isLogin: isLogin,
                   ),
                 ],
               ),
