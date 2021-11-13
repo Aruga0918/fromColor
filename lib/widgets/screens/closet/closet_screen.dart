@@ -26,24 +26,36 @@ class ClosetScreen extends StatelessWidget {
             ownItems: ClothDisplay.MockOuters,
             onTap: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ClosetAddDialog()
+                  builder: (context) => ClosetAddDialog(category: 'Outer')
               ));
             },
           ),
           ClosetLine(
             clothCategory: "トップス",
             ownItems: ClothDisplay.MockTops,
-            onTap: (){},
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => ClosetAddDialog(category: 'Tops')
+              ));
+            },
           ),
           ClosetLine(
             clothCategory: "ボトムス",
             ownItems: ClothDisplay.MockBottoms,
-            onTap: (){},
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => ClosetAddDialog(category: 'Bottoms')
+              ));
+            },
           ),
           ClosetLine(
             clothCategory: "靴",
             ownItems: ClothDisplay.MockShoes,
-            onTap: (){},
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => ClosetAddDialog(category: 'Shoes',)
+              ));
+            },
           ),
         ],
       ),

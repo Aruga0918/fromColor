@@ -1,10 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:from_color/models/colorList.dart';
 import 'package:from_color/riverpods/upload_data_notifier.dart';
+import 'package:from_color/models/firebase/firebase_library.dart' as fl;
 
 class ClosetAddDialog extends ConsumerWidget {
-  const ClosetAddDialog({Key? key}) : super(key: key);
+  const ClosetAddDialog({
+    Key? key,
+    required this.category
+  }) : super(key: key);
+  final String category;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -74,6 +81,46 @@ class ClosetAddDialog extends ConsumerWidget {
                   ],
                 ),
               ),
+              InkWell(
+                onTap: () async{
+                  final colorCategory = await ColorList.getColorCategory(selectedColor);
+                  print(colorCategory);
+                  fl.uploadImage(
+                      userId: FirebaseAuth.instance.currentUser!.uid,
+                      category: category,
+                      subCategory: "initial",
+                      colorCategory: colorCategory,
+                      colorValue: selectedColor.value.toRadixString(16),
+                      localImagePath: selectedImage,
+                      context: context);
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.35,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 0.5,
+                      color: Colors.grey
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(Icons.upload_rounded),
+                        Text(
+                          "Add this item",
+                          style: TextStyle(
+                            fontFamily: "RegularRoboto"
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),

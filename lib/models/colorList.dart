@@ -1,11 +1,51 @@
+import 'dart:ui';
+
 class ColorList {
 
-  static const nameList = [
-    red, peachPink, pink, purple, lightPurple, lavender, lightLavender, navy, lightNavy,
-    deepBlue, blue, skyBlue, lightBlue, turquoise, emerald, deepGreen, green, khaki, lightGreen,
-    yellowKhaki, yellow, orange, salmonPink, burgundy, brown, lightBrown, lightGrey, dark,
-    silverBlue, beige
-  ];
+  static const Map<String, List<String>> categoryList = {
+    "red": red,
+    "peachPink": peachPink,
+    "pink": pink,
+    "purple": purple,
+    "lightPurple": lightPurple,
+    "lavender": lavender,
+    "lightLavender": lightLavender,
+    "navy": navy,
+    "lightNavy": lightNavy,
+    "deepBlue": deepBlue,
+    "blue": blue,
+    "skyBlue": skyBlue,
+    "lightBlue": lightBlue,
+    "turquoise": turquoise,
+    "emerald": emerald,
+    "deepGreen": deepGreen,
+    "green": green,
+    "khaki": khaki,
+    "lightGreen": lightGreen,
+    "yellowKhaki": yellowKhaki,
+    "yellow": yellow,
+    "orange": orange,
+    "salmonPink": salmonPink,
+    "burgundy": burgundy,
+    "brown": brown,
+    "lightBrown": lightBrown,
+    "lightGrey": lightGrey,
+    "dark": dark,
+    "silverBlue": silverBlue,
+    "beige": beige
+  };
+
+  static Future<String> getColorCategory(Color color) async {
+    final colorValue = color.value.toRadixString(16);
+    var colorCategory = "else";
+    categoryList.forEach((category, colors) {
+      if (colors.contains(colorValue)) {
+        colorCategory = category;
+        return;
+      }
+    });
+    return colorCategory;
+  }
 
   static const red = [
     "fff44336", "ffe53935", "ffd32f2f", "ffc62828", "ffb71c1c", "ffd50000", "ffff3d00"
