@@ -112,12 +112,12 @@ class ImageUploader {
     CollectionReference users =
     FirebaseFirestore.instance.collection('usersCloset/$userId/$category/$subCategory/$colorCategory');
 
-    await users.doc(userId)
+    await users.doc()
         .set(
         {
-          'localPath': localPath,
-          'remotePath': remotePath,
-          'colorValue': colorValue
+          'localImagePath': localPath,
+          'remoteImagePath': remotePath,
+          'itemColorValue': colorValue
         },
         SetOptions(merge: true)
     );

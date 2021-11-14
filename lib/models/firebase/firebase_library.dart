@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:from_color/models/colorList.dart';
+import 'package:from_color/models/entities/download_data.dart';
 import 'package:from_color/models/firebase/image_uploader.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -70,6 +72,20 @@ Future<void> uploadImage({
       remotePath: remoteImagePath,
       colorValue: colorValue
   );
+}
+
+Future<List<DownloadData>> getCategoryItems({required String userId, required String category}) async {
+  final List<DownloadData> categoryItems = [];
+  for (final colorCategory in ColorList.categoryList.keys) {
+    final CollectionReference categoryCollectionRef =
+    FirebaseFirestore.instance.collection('usersCloset/$userId/$category/initial/$colorCategory'); //ver1.0ではサブカテゴリ１つのみ
+    final querySnapShot = await categoryCollectionRef.get();
+    final queryDocSnapshot = querySnapShot.docs; //colorCategory内のドキュメントリスト
+    queryDocSnapshot.map((DocumentSnapshot doc) {
+      categoryItems.add(DownloadData.snapshot2DLData(snapshot: doc));
+    });
+  }
+  return categoryItems;
 }
 
 ////////////////// Common methods //////////////////

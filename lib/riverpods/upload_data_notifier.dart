@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:from_color/models/entities/upload_data.dart';
+import 'package:from_color/models/entities/download_data.dart';
 import 'package:from_color/models/firebase/firebase_library.dart' as fl;
 import 'package:from_color/models/firebase/image_uploader.dart';
 

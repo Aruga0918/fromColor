@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:state_notifier/state_notifier.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:from_color/models/firebase/firebase_library.dart' as fl;
 
@@ -12,8 +14,14 @@ class LoginState with _$LoginState {
 }) = _LoginState;
 }
 
-class LoginController extends StateNotifier<LoginState> {
+class LoginController extends StateNotifier<LoginState> with LocatorMixin{
   LoginController() : super(const LoginState());
+
+  @override
+  void initState() {
+    super.initState();
+    state = state.copyWith(isLogin: FirebaseAuth.instance.currentUser != null);
+  }
 
   Future<void> googleSignin() async{
     try {

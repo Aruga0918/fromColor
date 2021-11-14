@@ -14,6 +14,8 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/bottoms_skiny_color.PNG');
   AssetGenImage get bottomsSkinyOutline =>
       const AssetGenImage('assets/images/bottoms_skiny_outline.PNG');
+  AssetGenImage get imageFailed =>
+      const AssetGenImage('assets/images/image_failed.png');
   AssetGenImage get innerBoulzonColor =>
       const AssetGenImage('assets/images/inner_boulzon_color.PNG');
   AssetGenImage get innerBoulzonOutline =>
