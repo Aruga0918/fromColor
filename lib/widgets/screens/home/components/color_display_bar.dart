@@ -6,11 +6,13 @@ class ColorDisplayBar extends StatelessWidget {
     Key? key,
     required this.selectedColor,
     required this.clothType,
-    required this.onTap
+    required this.onTap,
+    required this.isLogin
   }) : super(key: key);
   final Color selectedColor;
   final String clothType;
   final Function() onTap;
+  final bool isLogin;
 
   @override
   Widget build(BuildContext context) {
@@ -50,31 +52,39 @@ class ColorDisplayBar extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
+        Container(
           width: MediaQuery.of(context).size.width * 0.45,
           height: MediaQuery.of(context).size.height * 0.1,
-          child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            children: [
-              if (clothType == "アウター") Image(
-                image: Assets.images.sampleBlouzon,
-                height: MediaQuery.of(context).size.height * 0.1
-              )
-              else if (clothType == "トップス") Image(
-                image: Assets.images.sampleTops,
-                height: MediaQuery.of(context).size.height * 0.1
-              )
-              else if (clothType == "ボトムス") Image(
-                image: Assets.images.sampleBottoms,
-                height: MediaQuery.of(context).size.height * 0.1
+          alignment: Alignment.center,
+          child: isLogin
+            ? ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: [
+                if (clothType == "アウター") Image(
+                  image: Assets.images.sampleBlouzon,
+                  height: MediaQuery.of(context).size.height * 0.1
                 )
-              else Image(
-                image: Assets.images.sampleShoes,
-                height: MediaQuery.of(context).size.height * 0.1
+                else if (clothType == "トップス") Image(
+                  image: Assets.images.sampleTops,
+                  height: MediaQuery.of(context).size.height * 0.1
                 )
-            ],
-          ),
+                else if (clothType == "ボトムス") Image(
+                  image: Assets.images.sampleBottoms,
+                  height: MediaQuery.of(context).size.height * 0.1
+                  )
+                else Image(
+                  image: Assets.images.sampleShoes,
+                  height: MediaQuery.of(context).size.height * 0.1
+                  )
+              ],
+            )
+            : Text(
+              "ログインしていません",
+              style: TextStyle(
+                fontSize: 12
+              ),
+          )
         )
       ],
     );

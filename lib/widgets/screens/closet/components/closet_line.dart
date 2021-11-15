@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:from_color/models/entities/cloth_display.dart';
+import 'package:from_color/models/entities/download_data.dart';
+import 'package:from_color/riverpods/download_bottoms_notifier.dart';
+import 'package:from_color/riverpods/download_outer_notifier.dart';
+import 'package:from_color/riverpods/download_shoes_notifier.dart';
+import 'package:from_color/riverpods/download_tops_notifier.dart';
 import 'package:from_color/widgets/screens/closet/components/closet_grid.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ClosetLine extends StatelessWidget {
+class ClosetLine extends ConsumerWidget {
   const ClosetLine({
     Key? key,
     required this.clothCategory,
     required this.ownItems,
-    required this.onTap
+    required this.onTap,
+    required this.provider
   }) : super(key: key);
   final String clothCategory;
   final List<ClothDisplay> ownItems;
   final Function() onTap;
+  final ProviderBase provider;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+
+    final  List<DownloadData> userItems = watch(provider).downloadDataList;
+
     return Container(
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.4,
@@ -37,6 +48,7 @@ class ClosetLine extends StatelessWidget {
                 children: [
                   Text(clothCategory),
                   InkWell(
+                    onTap: onTap,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -61,21 +73,24 @@ class ClosetLine extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.all(MediaQuery.of(context).size.width / 60),
-            child: GridView.builder(
-              shrinkWrap: true,
-              itemCount: ownItems.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                mainAxisSpacing: MediaQuery.of(context).size.width / 60,
-                crossAxisSpacing: MediaQuery.of(context).size.width / 60,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return ClosetGrid(
-                    imgSrc: ownItems[index].imgSrc,
-                    colorCode: ownItems[index].colorCode
-                );
-              }
-            ),
+            child: userItems.isNotEmpty
+            ? GridView.builder(
+                shrinkWrap: true,
+                itemCount: userItems.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                  mainAxisSpacing: MediaQuery.of(context).size.width / 60,
+                  crossAxisSpacing: MediaQuery.of(context).size.width / 60,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return ClosetGrid(
+                      localImgPath: userItems[index].localImagePath,
+                      remoteImgPath: userItems[index].remoteImagePath,
+                      colorCode: userItems[index].itemColorValue
+                  );
+                }
+              )
+            : Text("アイテムがありません")
           ),
         ],
       ),

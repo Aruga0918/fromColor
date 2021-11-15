@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,8 @@ import 'package:from_color/widgets/screens/root/root_screen.dart';
 void main() async{
   //runAppの前に処理をする場合の宣言
   WidgetsFlutterBinding.ensureInitialized();
+  //firebase初期化のため
+  await Firebase.initializeApp();
   //画面を縦向きに固定
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   //Androidのstatusbarとbottom navigationのいろ

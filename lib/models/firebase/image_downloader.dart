@@ -1,32 +1,30 @@
 import 'dart:io' as io;
 
-import 'package:firebase_storage/firebase_storage.dart';
-
 class ImageDownLoader {
-  Future<String> getImage(String imgPathLocal, String imgPathRemote) async{
+  static Future<String> getImage({required String localImgPath, required String remoteImgPath}) async{
 
-    final bool existLocal = await io.File(imgPathLocal).exists();
-    String imgPathUse="";
+    final bool existLocal = await io.File(localImgPath).exists();
 
     if (existLocal) {
       //ローカルに存在する場合はローカルの画像を使う
-      imgPathUse = imgPathLocal;
+      io.File localImage = io.File(localImgPath);
+      return "local";
+      //Viewで以下のWidget生成
+      // return Image.file(
+      //     localImage,
+      //     width: width,
+      //     fit: BoxFit.fitWidth
+      // );
     }
     else {
-      if ((imgPathRemote != "") && (imgPathRemote != null)) {
-        try {
-          //ローカルに存在しない場合はリモートのデータをダウンロード
-          imgPathUse = await FirebaseStorage.instance.ref().
-          child("closet").child(imgPathRemote).getDownloadURL();
-        }
-        catch (FirebaseException) {
-          imgPathUse = "";
-        }
-      }
-      else{
-        imgPathUse="";
-      }
+      return "remote";
     }
-    return imgPathUse;
+    return "通信エラー";
+    //通信エラー時は以下のWidget生成
+    // return Image(
+    //     image: Assets.images.imageFailed,
+    //     width: width,
+    //     fit: BoxFit.fitWidth
+    // );
   }
 }

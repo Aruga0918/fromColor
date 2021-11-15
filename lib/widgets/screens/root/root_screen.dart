@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:from_color/widgets/screens/closet/closet_screen.dart';
 import 'package:from_color/widgets/screens/home/home_screen.dart';
+import 'package:from_color/widgets/screens/login/login_screen.dart';
+import 'package:from_color/widgets/screens/user/user_screen.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:provider/provider.dart';
 import 'root_screen_state.dart';
@@ -27,7 +30,8 @@ class RootScreen extends StatelessWidget {
                 return CupertinoPageScaffold(
                   child: [
                     HomeScreen(),
-                    ClosetScreen()
+                    ClosetScreen(),
+                    UserScreen()
                   ][index],
                 );
               },
