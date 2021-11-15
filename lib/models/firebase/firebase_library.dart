@@ -58,20 +58,25 @@ Future<void> uploadImage({
   required String localImagePath,
   required BuildContext context
 }) async {
-  final remoteImagePath = await ImageUploader.uploadFile(sourcePath: localImagePath, userId: userId, category: category);
-  if (remoteImagePath == null) {
-    showAlertDialog(context: context);
-    return;
-  }
-  ImageUploader.addFilePath(
-      userId: userId,
-      category: category,
-      subCategory: subCategory,
-      colorCategory: colorCategory,
-      localPath: localImagePath,
-      remotePath: remoteImagePath,
-      colorValue: colorValue
-  );
+  final datetime = DateTime.now().toString();
+  ImageUploader.uploadFile(sourcePath: localImagePath, userId: userId, category: category, fileName: datetime).then(
+          (remoteImagePath) {
+            if (remoteImagePath == "error") {
+              print("no remotePath");
+              showAlertDialog(context: context);
+              return;
+            }
+            ImageUploader.addFilePath(
+                userId: userId,
+                category: category,
+                subCategory: subCategory,
+                colorCategory: colorCategory,
+                localPath: localImagePath,
+                remotePath: remoteImagePath,
+                colorValue: colorValue,
+                fileName: datetime
+            );
+          });
 }
 
 Future<List<DownloadData>> getCategoryItems({required String userId, required String category}) async {

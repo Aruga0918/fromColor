@@ -83,9 +83,27 @@ class ClosetAddDialog extends ConsumerWidget {
               ),
               InkWell(
                 onTap: () async{
+                  if (selectedColor == Colors.transparent) {
+                    showDialog(
+                      context: context,
+                      builder: (alertContext) {
+                        return AlertDialog(
+                          title: const Text('色が未選択です。'),
+                          actions: <Widget>[
+                            SimpleDialogOption(
+                              child: const Text('閉じる'),
+                              onPressed: () {
+                                Navigator.of(alertContext).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                   final colorCategory = await ColorList.getColorCategory(selectedColor);
                   print(colorCategory);
-                  fl.uploadImage(
+                  await fl.uploadImage(
                       userId: FirebaseAuth.instance.currentUser!.uid,
                       category: category,
                       subCategory: "initial",
@@ -93,6 +111,7 @@ class ClosetAddDialog extends ConsumerWidget {
                       colorValue: selectedColor.value.toRadixString(16),
                       localImagePath: selectedImage,
                       context: context);
+                  Navigator.of(context).pop();
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.35,

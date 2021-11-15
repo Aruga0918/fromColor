@@ -61,40 +61,63 @@ class ImageUploader {
 
   //Firebase Storageに画像を保存
   //sourcePathには先に取得したローカルパス、uploadFileNameには一意になるような名前を入れます。
-  static Future<String?> uploadFile({required String sourcePath, required String userId, required String category}) async{
+  static Future<String> uploadFile({required String sourcePath, required String userId, required String category, required String fileName}) async{
 
     final FirebaseStorage storage = FirebaseStorage.instance;
-    Reference ref = storage.ref().child("closet/$userId/$category");  //保存するフォルダ
+    Reference ref = storage.ref().child("closet/$userId/$category/$fileName");  //保存するフォルダ
 
     io.File file = io.File(sourcePath);
     UploadTask task = ref.putFile(file);
-
-    try{
-      final snapshot = await task;
-      snapshot.ref.getDownloadURL().then(
-              (remoteUrl) => remoteUrl.toString()
-      );
-    }
-    catch(error){
-      //エラー処理
-      switch (error) {
-        case 'storage/object-not-found':
-          print('ファイルが存在しませんでした');
-          return null;
-        case 'storage/unauthorized':
-          print('許可がありません');
-          return null;
-        case 'storage/canceled':
-          print('キャンセルされました');
-          return null;
-        case 'storage/unknown':
-          print('予期せぬエラーが生じました');
-          return null;
-        default:
-          print('原因不明のエラーです');
-          return null;
+    Future<String> getUrl() async {
+      try {
+        final remoteUrl = await ref.getDownloadURL();
+        print(remoteUrl);
+        return remoteUrl.toString();
+      } catch (e) {
+        print(e);
+        return "error";
       }
     }
+
+    var result = "error";
+
+    await task.whenComplete(
+            () async{
+              result = await getUrl();
+            });
+
+    return result;
+
+    // try{
+    //   final snapshot = await task;
+    //   snapshot.ref.getDownloadURL().then(
+    //           (remoteUrl) {
+    //             Duration(milliseconds: 1);
+    //             print(remoteUrl);
+    //             return remoteUrl;
+    //           }
+    //   );
+    // }
+    // catch(error){
+    //   //エラー処理
+    //   switch (error) {
+    //     case 'storage/object-not-found':
+    //       print('ファイルが存在しませんでした');
+    //       return null;
+    //     case 'storage/unauthorized':
+    //       print('許可がありません');
+    //       return null;
+    //     case 'storage/canceled':
+    //       print('キャンセルされました');
+    //       return null;
+    //     case 'storage/unknown':
+    //       print('予期せぬエラーが生じました');
+    //       return null;
+    //     // default:
+    //     //   print('原因不明のエラーです');
+    //     //   return null;
+    //   }
+    // }
   }
 
   //画像のファイルパスを保存
@@ -107,17 +130,19 @@ class ImageUploader {
     required String localPath,
     required String remotePath,
     required String colorValue,
+    required String fileName,
   })async {
 
     CollectionReference users =
     FirebaseFirestore.instance.collection('usersCloset/$userId/$category/$subCategory/$colorCategory');
 
-    await users.doc()
+    await users.doc(fileName)
         .set(
         {
           'localImagePath': localPath,
           'remoteImagePath': remotePath,
-          'itemColorValue': colorValue
+          'itemColorValue': colorValue,
+          'fileName': 'closet/$userId/$category/$fileName'
         },
         SetOptions(merge: true)
     );
