@@ -26,6 +26,11 @@ class DownloadTopsController extends StateNotifier<DownloadTopsState> with Locat
     }
   }
 
+  void reload() async{
+    final userTopsItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Tops");
+    state = state.copyWith(downloadDataList: userTopsItems);
+  }
+
 }
 
 final downloadTopsProvider = StateNotifierProvider<DownloadTopsController, DownloadTopsState>((ref)

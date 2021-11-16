@@ -26,6 +26,13 @@ class DownloadShoesController extends StateNotifier<DownloadShoesState> with Loc
     }
   }
 
+  void reload() async{
+    if (FirebaseAuth.instance.currentUser != null) {
+      final userShoesItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Shoes");
+      state = state.copyWith(downloadDataList: userShoesItems);
+    }
+  }
+
 }
 
 final downloadShoesProvider = StateNotifierProvider<DownloadShoesController, DownloadShoesState>((ref)

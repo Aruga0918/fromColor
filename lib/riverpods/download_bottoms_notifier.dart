@@ -26,6 +26,11 @@ class DownloadBottomsController extends StateNotifier<DownloadBottomsState> with
     }
   }
 
+  void reload() async{
+    final userBottomsItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Bottoms");
+    state = state.copyWith(downloadDataList: userBottomsItems);
+  }
+
 }
 
 final downloadBottomsProvider = StateNotifierProvider<DownloadBottomsController, DownloadBottomsState>((ref)

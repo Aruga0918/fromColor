@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:from_color/models/entities/cloth_display.dart';
 import 'package:from_color/models/entities/download_data.dart';
-import 'package:from_color/riverpods/download_bottoms_notifier.dart';
-import 'package:from_color/riverpods/download_outer_notifier.dart';
-import 'package:from_color/riverpods/download_shoes_notifier.dart';
-import 'package:from_color/riverpods/download_tops_notifier.dart';
+import 'package:from_color/riverpods/login_notifier.dart';
 import 'package:from_color/widgets/screens/closet/components/closet_grid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,7 +21,8 @@ class ClosetLine extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
 
-    final  List<DownloadData> userItems = watch(provider).downloadDataList;
+    final List<DownloadData> userItems = watch(provider).downloadDataList;
+    final bool isLogin = watch(loginProvider).isLogin;
 
     return Container(
       constraints: BoxConstraints(
@@ -73,7 +71,7 @@ class ClosetLine extends ConsumerWidget {
           ),
           Padding(
             padding: EdgeInsets.all(MediaQuery.of(context).size.width / 60),
-            child: userItems.isNotEmpty
+            child: isLogin
             ? GridView.builder(
                 shrinkWrap: true,
                 itemCount: userItems.length,

@@ -9,9 +9,11 @@ import 'package:from_color/models/firebase/firebase_library.dart' as fl;
 class ClosetAddDialog extends ConsumerWidget {
   const ClosetAddDialog({
     Key? key,
-    required this.category
+    required this.category,
+    required this.provider
   }) : super(key: key);
   final String category;
+  final StateNotifierProvider provider;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {

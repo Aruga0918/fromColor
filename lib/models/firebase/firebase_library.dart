@@ -86,8 +86,11 @@ Future<List<DownloadData>> getCategoryItems({required String userId, required St
     FirebaseFirestore.instance.collection('usersCloset/$userId/$category/initial/$colorCategory'); //ver1.0ではサブカテゴリ１つのみ
     final querySnapShot = await categoryCollectionRef.get();
     final queryDocSnapshot = querySnapShot.docs; //colorCategory内のドキュメントリスト
-    queryDocSnapshot.map((DocumentSnapshot doc) {
-      categoryItems.add(DownloadData.snapshot2DLData(snapshot: doc));
+    queryDocSnapshot.forEach((DocumentSnapshot doc) async {
+      print("document: $doc");
+      final DownloadData data = await DownloadData.snapshot2DLData(snapshot: doc);
+      print(data);
+      categoryItems.add(data);
     });
   }
   return categoryItems;

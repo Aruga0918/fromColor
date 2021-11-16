@@ -13,7 +13,7 @@ class DownloadData {
   final String remoteImagePath;
   final String itemColorValue;
 
-  static DownloadData snapshot2DLData({required DocumentSnapshot snapshot}) {
+  static Future<DownloadData> snapshot2DLData({required DocumentSnapshot snapshot}) async{
     final Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     return DownloadData(
         localImagePath: data["localImagePath"],
