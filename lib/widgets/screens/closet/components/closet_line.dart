@@ -4,7 +4,7 @@ import 'package:from_color/models/entities/download_data.dart';
 import 'package:from_color/riverpods/login_notifier.dart';
 import 'package:from_color/widgets/screens/closet/components/closet_grid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:from_color/models/business/map2list_download_data.dart' as ml;
 class ClosetLine extends ConsumerWidget {
   const ClosetLine({
     Key? key,
@@ -16,12 +16,13 @@ class ClosetLine extends ConsumerWidget {
   final String clothCategory;
   final List<ClothDisplay> ownItems;
   final Function() onTap;
-  final ProviderBase provider;
+  final StateNotifierProvider provider;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
 
-    final List<DownloadData> userItems = watch(provider).downloadDataList;
+    final Map<String, List<DownloadData>> userItemsMap = watch(provider).downloadDataList;
+    final List<DownloadData> userItems = ml.mapToList(map: userItemsMap);
     final bool isLogin = watch(loginProvider).isLogin;
 
     return Container(

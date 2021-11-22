@@ -3,6 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/models/entities/selected_colors.dart';
 import 'package:from_color/riverpods/color_notifier.dart';
 import 'package:from_color/riverpods/login_notifier.dart';
+import 'package:from_color/riverpods/palette_download_bottoms_notifier.dart';
+import 'package:from_color/riverpods/palette_download_outer_notifier.dart';
+import 'package:from_color/riverpods/palette_download_shoes_notifier.dart';
+import 'package:from_color/riverpods/palette_download_tops_notifier.dart';
 import 'package:from_color/widgets/screens/home/components/color_display_bar.dart';
 import 'package:from_color/widgets/screens/home/components/figure_woman.dart';
 
@@ -22,7 +26,6 @@ class HomeScreen extends ConsumerWidget {
             fontFamily: "Roboto",
             fontWeight: FontWeight.bold,
             fontSize: 26
-
           ),
         ),
         shadowColor: Colors.transparent,
@@ -33,12 +36,7 @@ class HomeScreen extends ConsumerWidget {
         children: [
           Align(
             alignment: Alignment.center,
-            child: FigureWoman(
-                outerColor: selectedColor.outerColor,
-                innerColor: selectedColor.innerColor,//#FFF5E3
-                bottomsColor: selectedColor.bottomsColor,
-                shoesColor: selectedColor.shoesColor
-            ),
+            child: FigureWoman(),
           ),
           Padding(
             padding: EdgeInsets.only(right: MediaQuery.of(context).size.height *0.02),
@@ -51,25 +49,33 @@ class HomeScreen extends ConsumerWidget {
                   ColorDisplayBar(
                     selectedColor: selectedColor.outerColor,
                     clothType: "アウター",
+                    provider: paletteDownloadOuterProvider,
                     onTap: () => context.read(colorProvider.notifier).showOuterColorPicker(context),
+                    setColorFunc: context.read(colorProvider.notifier).setOuterColor,
                     isLogin: isLogin,
                   ),
                   ColorDisplayBar(
                     selectedColor: selectedColor.innerColor,
                     clothType: "トップス",
+                    provider: paletteDownloadTopsProvider,
                     onTap: () => context.read(colorProvider.notifier).showInnerColorPicker(context),
+                    setColorFunc: context.read(colorProvider.notifier).setInnerColor,
                     isLogin: isLogin,
                   ),
                   ColorDisplayBar(
                     selectedColor: selectedColor.bottomsColor,
                     clothType: "ボトムス",
+                    provider: paletteDownloadBottomsProvider,
                     onTap: () => context.read(colorProvider.notifier).showBottomsColorPicker(context),
+                    setColorFunc: context.read(colorProvider.notifier).setBottomsColor,
                     isLogin: isLogin,
                   ),
                   ColorDisplayBar(
                     selectedColor: selectedColor.shoesColor,
                     clothType: "靴",
+                    provider: paletteDownloadShoesProvider,
                     onTap: () => context.read(colorProvider.notifier).showShoesColorPicker(context),
+                    setColorFunc: context.read(colorProvider.notifier).setShoesColor,
                     isLogin: isLogin,
                   ),
                 ],

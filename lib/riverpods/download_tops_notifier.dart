@@ -10,7 +10,7 @@ part 'download_tops_notifier.freezed.dart';
 @freezed
 class DownloadTopsState with _$DownloadTopsState {
   const factory DownloadTopsState({
-    @Default([]) List<DownloadData> downloadDataList,
+    @Default({}) Map<String, List<DownloadData>> downloadDataList,
   }) = _DownloadTopsState;
 }
 
@@ -24,6 +24,10 @@ class DownloadTopsController extends StateNotifier<DownloadTopsState> with Locat
       final userTopsItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Tops");
       state = state.copyWith(downloadDataList: userTopsItems);
     }
+  }
+
+  List<DownloadData> provideColorItems (String colorValue) {
+    return state.downloadDataList[colorValue]!;
   }
 
   void reload() async{

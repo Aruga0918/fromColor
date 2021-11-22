@@ -113,7 +113,7 @@ class ClosetAddDialog extends ConsumerWidget {
                       colorValue: selectedColor.value.toRadixString(16),
                       localImagePath: selectedImage,
                       context: context);
-                  Navigator.of(context).pop();
+                  Navigator.pop(context, true);
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.35,

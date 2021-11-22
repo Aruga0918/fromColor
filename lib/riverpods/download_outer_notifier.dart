@@ -11,7 +11,7 @@ part 'download_outer_notifier.freezed.dart';
 @freezed
 class DownloadOuterState with _$DownloadOuterState {
   const factory DownloadOuterState({
-    @Default([]) List<DownloadData> downloadDataList,
+    @Default({}) Map<String, List<DownloadData>> downloadDataList,
   }) = _DownloadOuterState;
 }
 
@@ -30,6 +30,10 @@ class DownloadOuterController extends StateNotifier<DownloadOuterState> with Loc
   void reload() async{
     final userOuterItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Outer");
     state = state.copyWith(downloadDataList: userOuterItems);
+  }
+
+  List<DownloadData> provideColorItems (String colorValue) {
+    return state.downloadDataList[colorValue]!;
   }
 
 }

@@ -17,9 +17,11 @@ class _$ColorStateTearOff {
   const _$ColorStateTearOff();
 
   _ColorState call(
-      {SelectedColors selectedColors = SelectedColors.initialColors}) {
+      {SelectedColors selectedColors = SelectedColors.initialColors,
+      bool isGirl = true}) {
     return _ColorState(
       selectedColors: selectedColors,
+      isGirl: isGirl,
     );
   }
 }
@@ -30,6 +32,7 @@ const $ColorState = _$ColorStateTearOff();
 /// @nodoc
 mixin _$ColorState {
   SelectedColors get selectedColors => throw _privateConstructorUsedError;
+  bool get isGirl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ColorStateCopyWith<ColorState> get copyWith =>
@@ -41,7 +44,7 @@ abstract class $ColorStateCopyWith<$Res> {
   factory $ColorStateCopyWith(
           ColorState value, $Res Function(ColorState) then) =
       _$ColorStateCopyWithImpl<$Res>;
-  $Res call({SelectedColors selectedColors});
+  $Res call({SelectedColors selectedColors, bool isGirl});
 }
 
 /// @nodoc
@@ -55,12 +58,17 @@ class _$ColorStateCopyWithImpl<$Res> implements $ColorStateCopyWith<$Res> {
   @override
   $Res call({
     Object? selectedColors = freezed,
+    Object? isGirl = freezed,
   }) {
     return _then(_value.copyWith(
       selectedColors: selectedColors == freezed
           ? _value.selectedColors
           : selectedColors // ignore: cast_nullable_to_non_nullable
               as SelectedColors,
+      isGirl: isGirl == freezed
+          ? _value.isGirl
+          : isGirl // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -71,7 +79,7 @@ abstract class _$ColorStateCopyWith<$Res> implements $ColorStateCopyWith<$Res> {
           _ColorState value, $Res Function(_ColorState) then) =
       __$ColorStateCopyWithImpl<$Res>;
   @override
-  $Res call({SelectedColors selectedColors});
+  $Res call({SelectedColors selectedColors, bool isGirl});
 }
 
 /// @nodoc
@@ -87,12 +95,17 @@ class __$ColorStateCopyWithImpl<$Res> extends _$ColorStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? selectedColors = freezed,
+    Object? isGirl = freezed,
   }) {
     return _then(_ColorState(
       selectedColors: selectedColors == freezed
           ? _value.selectedColors
           : selectedColors // ignore: cast_nullable_to_non_nullable
               as SelectedColors,
+      isGirl: isGirl == freezed
+          ? _value.isGirl
+          : isGirl // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -100,15 +113,19 @@ class __$ColorStateCopyWithImpl<$Res> extends _$ColorStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ColorState implements _ColorState {
-  const _$_ColorState({this.selectedColors = SelectedColors.initialColors});
+  const _$_ColorState(
+      {this.selectedColors = SelectedColors.initialColors, this.isGirl = true});
 
   @JsonKey(defaultValue: SelectedColors.initialColors)
   @override
   final SelectedColors selectedColors;
+  @JsonKey(defaultValue: true)
+  @override
+  final bool isGirl;
 
   @override
   String toString() {
-    return 'ColorState(selectedColors: $selectedColors)';
+    return 'ColorState(selectedColors: $selectedColors, isGirl: $isGirl)';
   }
 
   @override
@@ -117,13 +134,16 @@ class _$_ColorState implements _ColorState {
         (other is _ColorState &&
             (identical(other.selectedColors, selectedColors) ||
                 const DeepCollectionEquality()
-                    .equals(other.selectedColors, selectedColors)));
+                    .equals(other.selectedColors, selectedColors)) &&
+            (identical(other.isGirl, isGirl) ||
+                const DeepCollectionEquality().equals(other.isGirl, isGirl)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(selectedColors);
+      const DeepCollectionEquality().hash(selectedColors) ^
+      const DeepCollectionEquality().hash(isGirl);
 
   @JsonKey(ignore: true)
   @override
@@ -132,10 +152,13 @@ class _$_ColorState implements _ColorState {
 }
 
 abstract class _ColorState implements ColorState {
-  const factory _ColorState({SelectedColors selectedColors}) = _$_ColorState;
+  const factory _ColorState({SelectedColors selectedColors, bool isGirl}) =
+      _$_ColorState;
 
   @override
   SelectedColors get selectedColors => throw _privateConstructorUsedError;
+  @override
+  bool get isGirl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ColorStateCopyWith<_ColorState> get copyWith =>

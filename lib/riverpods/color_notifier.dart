@@ -4,19 +4,40 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:from_color/models/entities/selected_colors.dart';
+import 'package:from_color/preference/shared_preference.dart';
+import 'package:from_color/riverpods/login_notifier.dart';
+import 'package:from_color/riverpods/palette_download_bottoms_notifier.dart';
+import 'package:from_color/riverpods/palette_download_outer_notifier.dart';
+import 'package:from_color/riverpods/palette_download_shoes_notifier.dart';
+import 'package:from_color/riverpods/palette_download_tops_notifier.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'color_notifier.freezed.dart';
 
 @freezed
 class ColorState with _$ColorState {
   const factory ColorState({
-    @Default(SelectedColors.initialColors) SelectedColors selectedColors
+    @Default(SelectedColors.initialColors) SelectedColors selectedColors,
+    @Default(true) bool isGirl
 }) = _ColorState;
 }
 
 
 class ColorNotifier extends StateNotifier<ColorState> {
-  ColorNotifier() : super(const ColorState());//初期値
+  ColorNotifier(this.ref) : super(const ColorState()) {
+    _initState();
+  }//初期値
+
+  final ProviderReference ref;
+
+  Future<void> _initState() async{
+    final  bool? lastSex = await Preference().getBool(PreferenceKey.isGirl);
+    if (lastSex == null) {
+      Preference().setBool(PreferenceKey.isGirl, true);
+    } else{
+      state = state.copyWith(isGirl: lastSex);
+    }
+  }
 
   void showOuterColorPicker(BuildContext context) {
     Color outerPicker = state.selectedColors.outerColor;
@@ -35,7 +56,7 @@ class ColorNotifier extends StateNotifier<ColorState> {
               SimpleDialogOption(
                 child: const Text('決定'),
                 onPressed: () {
-                  _setOuterColor(newOuterColor: outerPicker);
+                  setOuterColor(outerPicker);
                   Navigator.of(alertContext).pop();
                 },
               ),
@@ -62,7 +83,7 @@ class ColorNotifier extends StateNotifier<ColorState> {
             SimpleDialogOption(
               child: const Text('決定'),
               onPressed: () {
-                _setInnerColor(newInnerColor: innerPicker);
+                setInnerColor(innerPicker);
                 Navigator.of(alertContext).pop();
               },
             ),
@@ -89,7 +110,7 @@ class ColorNotifier extends StateNotifier<ColorState> {
             SimpleDialogOption(
               child: const Text('決定'),
               onPressed: () {
-                _setBottomsColor(newBottomsColor: bottomsPicker);
+                setBottomsColor(bottomsPicker);
                 Navigator.of(alertContext).pop();
               },
             ),
@@ -116,7 +137,7 @@ class ColorNotifier extends StateNotifier<ColorState> {
             SimpleDialogOption(
               child: const Text('決定'),
               onPressed: () {
-                _setShoesColor(newShoesColor: shoesPicker);
+                setShoesColor(shoesPicker);
                 Navigator.of(alertContext).pop();
               },
             ),
@@ -127,11 +148,14 @@ class ColorNotifier extends StateNotifier<ColorState> {
   }
 
 
-  void _setOuterColor({required Color newOuterColor}) {
+  void setOuterColor(Color newOuterColor) {
 
     final currentTops = state.selectedColors.innerColor;
     final currentBottoms = state.selectedColors.bottomsColor;
     final currentShoes = state.selectedColors.shoesColor;
+    if (ref.read(loginProvider.notifier).state.isLogin) {
+      ref.read(paletteDownloadOuterProvider.notifier).setDataListByColor(newOuterColor);
+    }
 
     state = state.copyWith(
         selectedColors: SelectedColors(
@@ -143,11 +167,15 @@ class ColorNotifier extends StateNotifier<ColorState> {
     );
   }
 
-  void _setInnerColor({required Color newInnerColor}) {
+  void setInnerColor(Color newInnerColor) {
 
     final currentOuter = state.selectedColors.outerColor;
     final currentBottoms = state.selectedColors.bottomsColor;
     final currentShoes = state.selectedColors.shoesColor;
+    if (ref.read(loginProvider.notifier).state.isLogin) {
+      ref.read(paletteDownloadTopsProvider.notifier).setDataListByColor(newInnerColor);
+    }
+    ref.read(paletteDownloadTopsProvider.notifier).setDataListByColor(newInnerColor);
 
     state = state.copyWith(
         selectedColors: SelectedColors(
@@ -159,11 +187,14 @@ class ColorNotifier extends StateNotifier<ColorState> {
     );
   }
 
-  void _setBottomsColor({required Color newBottomsColor}) {
+  void setBottomsColor(Color newBottomsColor) {
 
     final currentOuter = state.selectedColors.outerColor;
     final currentTops = state.selectedColors.innerColor;
     final currentShoes = state.selectedColors.shoesColor;
+    if (ref.read(loginProvider.notifier).state.isLogin) {
+      ref.read(paletteDownloadBottomsProvider.notifier).setDataListByColor(newBottomsColor);
+    }
 
     state = state.copyWith(
         selectedColors: SelectedColors(
@@ -175,11 +206,14 @@ class ColorNotifier extends StateNotifier<ColorState> {
     );
   }
 
-  void _setShoesColor({required Color newShoesColor}) {
+  void setShoesColor(Color newShoesColor) {
 
     final currentOuter = state.selectedColors.outerColor;
     final currentTops = state.selectedColors.innerColor;
     final currentBottoms = state.selectedColors.bottomsColor;
+    if (ref.read(loginProvider.notifier).state.isLogin) {
+      ref.read(paletteDownloadShoesProvider.notifier).setDataListByColor(newShoesColor);
+    }
 
     state = state.copyWith(
         selectedColors: SelectedColors(
@@ -190,8 +224,13 @@ class ColorNotifier extends StateNotifier<ColorState> {
         )
     );
   }
+
+  void reverseSex(){
+    Preference().setBool(PreferenceKey.isGirl, !state.isGirl);
+    state = state.copyWith(isGirl: !state.isGirl);
+  }
 }
 
 final colorProvider = StateNotifierProvider<ColorNotifier,ColorState>((ref)
-  => ColorNotifier()
+  => ColorNotifier(ref)
 );

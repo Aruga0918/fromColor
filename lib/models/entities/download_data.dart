@@ -21,4 +21,14 @@ class DownloadData {
         itemColorValue: data["itemColorValue"],
     );
   }
+
+  static Future<List<DownloadData>> sortByTargetColor({required String color, required List<DownloadData> list}) async{
+    if (list.length < 2) {
+      return list;
+    }
+    final target = list.where((DownloadData item) => item.itemColorValue == color).toList();
+    final leftOvers = list.where((DownloadData item) => item.itemColorValue != color).toList();
+    target.addAll(leftOvers);
+    return target;
+  }
 }

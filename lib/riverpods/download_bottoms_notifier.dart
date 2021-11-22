@@ -10,7 +10,7 @@ part 'download_bottoms_notifier.freezed.dart';
 @freezed
 class DownloadBottomsState with _$DownloadBottomsState {
   const factory DownloadBottomsState({
-    @Default([]) List<DownloadData> downloadDataList,
+    @Default({}) Map<String, List<DownloadData>> downloadDataList,
   }) = _DownloadBottomsState;
 }
 
@@ -24,6 +24,10 @@ class DownloadBottomsController extends StateNotifier<DownloadBottomsState> with
       final userBottomsItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Bottoms");
       state = state.copyWith(downloadDataList: userBottomsItems);
     }
+  }
+
+  List<DownloadData> provideColorItems (String colorValue) {
+    return state.downloadDataList[colorValue]!;
   }
 
   void reload() async{
