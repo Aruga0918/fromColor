@@ -38,11 +38,38 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/shoes_canvas_color.PNG');
   AssetGenImage get shoesCanvasOutline =>
       const AssetGenImage('assets/images/shoes_canvas_outline.PNG');
+  $AssetsImagesTyakkoGen get tyakko => const $AssetsImagesTyakkoGen();
+}
+
+class $AssetsImagesTyakkoGen {
+  const $AssetsImagesTyakkoGen();
+
+  AssetGenImage get boyBottoms =>
+      const AssetGenImage('assets/images/tyakko/boy_bottoms.PNG');
+  AssetGenImage get boyOuter =>
+      const AssetGenImage('assets/images/tyakko/boy_outer.PNG');
+  AssetGenImage get boyOutline =>
+      const AssetGenImage('assets/images/tyakko/boy_outline.png');
+  AssetGenImage get boyShoes =>
+      const AssetGenImage('assets/images/tyakko/boy_shoes.PNG');
+  AssetGenImage get boyTops =>
+      const AssetGenImage('assets/images/tyakko/boy_tops.PNG');
+  AssetGenImage get girlBottoms =>
+      const AssetGenImage('assets/images/tyakko/girl_bottoms.PNG');
+  AssetGenImage get girlOuter =>
+      const AssetGenImage('assets/images/tyakko/girl_outer.PNG');
+  AssetGenImage get girlOutline =>
+      const AssetGenImage('assets/images/tyakko/girl_outline.PNG');
+  AssetGenImage get girlShoes =>
+      const AssetGenImage('assets/images/tyakko/girl_shoes.PNG');
+  AssetGenImage get girlTops =>
+      const AssetGenImage('assets/images/tyakko/girl_tops.PNG');
 }
 
 class Assets {
   Assets._();
 
+  static const AssetGenImage icon = AssetGenImage('assets/icon.png');
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

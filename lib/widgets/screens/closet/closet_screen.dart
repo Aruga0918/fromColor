@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/models/entities/cloth_display.dart';
 import 'package:from_color/riverpods/download_bottoms_notifier.dart';
 import 'package:from_color/riverpods/download_outer_notifier.dart';
@@ -31,8 +32,8 @@ class ClosetScreen extends StatelessWidget {
             provider: downloadOuterProvider,
             onTap: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ClosetAddDialog(category: 'Outer')
-              ));
+                  builder: (context) => ClosetAddDialog(category: 'Outer', provider: downloadOuterProvider)
+              )).then((flag) { if (flag) {context.read(downloadOuterProvider.notifier).reload();}});
             },
           ),
           ClosetLine(
@@ -41,8 +42,8 @@ class ClosetScreen extends StatelessWidget {
             provider: downloadTopsProvider,
             onTap: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ClosetAddDialog(category: 'Tops')
-              ));
+                  builder: (context) => ClosetAddDialog(category: 'Tops', provider: downloadTopsProvider)
+              )).then((flag) { if (flag) {context.read(downloadTopsProvider.notifier).reload();}});
             },
           ),
           ClosetLine(
@@ -51,8 +52,8 @@ class ClosetScreen extends StatelessWidget {
             provider: downloadBottomsProvider,
             onTap: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ClosetAddDialog(category: 'Bottoms')
-              ));
+                  builder: (context) => ClosetAddDialog(category: 'Bottoms', provider: downloadBottomsProvider)
+              )).then((flag) {if (flag) {context.read(downloadBottomsProvider.notifier).reload();}});
             },
           ),
           ClosetLine(
@@ -61,8 +62,8 @@ class ClosetScreen extends StatelessWidget {
             provider: downloadShoesProvider,
             onTap: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ClosetAddDialog(category: 'Shoes',)
-              ));
+                  builder: (context) => ClosetAddDialog(category: 'Shoes', provider: downloadShoesProvider)
+              )).then((flag) { if (flag) {context.read(downloadShoesProvider.notifier).reload();}});
             },
           ),
         ],

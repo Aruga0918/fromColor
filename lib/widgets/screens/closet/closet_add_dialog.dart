@@ -9,9 +9,11 @@ import 'package:from_color/models/firebase/firebase_library.dart' as fl;
 class ClosetAddDialog extends ConsumerWidget {
   const ClosetAddDialog({
     Key? key,
-    required this.category
+    required this.category,
+    required this.provider
   }) : super(key: key);
   final String category;
+  final StateNotifierProvider provider;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -111,7 +113,7 @@ class ClosetAddDialog extends ConsumerWidget {
                       colorValue: selectedColor.value.toRadixString(16),
                       localImagePath: selectedImage,
                       context: context);
-                  Navigator.of(context).pop();
+                  Navigator.pop(context, true);
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.35,

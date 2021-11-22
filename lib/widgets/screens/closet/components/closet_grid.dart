@@ -30,7 +30,8 @@ class ClosetGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: MediaQuery.of(context).size.width * 0.19,//GridViewでのpaddingは /240 (0.05/12より)
+      width: MediaQuery.of(context).size.width * 0.19, //GridViewでのpaddingは /240 (0.05/12より)
+      height: MediaQuery.of(context).size.height * 0.1,
       child: Stack(
         children: [
           FutureBuilder(
@@ -42,7 +43,8 @@ class ClosetGrid extends StatelessWidget {
                     return Image.file(
                         io.File(localImgPath),
                         width: MediaQuery.of(context).size.width * 0.18,
-                        fit: BoxFit.fitWidth
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        fit: BoxFit.cover
                     );
                   } catch(e) {
                     print(e);
@@ -53,7 +55,8 @@ class ClosetGrid extends StatelessWidget {
                     return Image.network(
                         remoteImgPath,
                         width: MediaQuery.of(context).size.width * 0.18,
-                        fit: BoxFit.fitWidth
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        fit: BoxFit.cover
                     );
                   } catch(e) {
                     print(e);

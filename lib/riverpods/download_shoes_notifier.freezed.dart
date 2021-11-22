@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$DownloadShoesStateTearOff {
   const _$DownloadShoesStateTearOff();
 
-  _DownloadShoesState call({List<DownloadData> downloadDataList = const []}) {
+  _DownloadShoesState call(
+      {Map<String, List<DownloadData>> downloadDataList = const {}}) {
     return _DownloadShoesState(
       downloadDataList: downloadDataList,
     );
@@ -28,7 +29,8 @@ const $DownloadShoesState = _$DownloadShoesStateTearOff();
 
 /// @nodoc
 mixin _$DownloadShoesState {
-  List<DownloadData> get downloadDataList => throw _privateConstructorUsedError;
+  Map<String, List<DownloadData>> get downloadDataList =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DownloadShoesStateCopyWith<DownloadShoesState> get copyWith =>
@@ -40,7 +42,7 @@ abstract class $DownloadShoesStateCopyWith<$Res> {
   factory $DownloadShoesStateCopyWith(
           DownloadShoesState value, $Res Function(DownloadShoesState) then) =
       _$DownloadShoesStateCopyWithImpl<$Res>;
-  $Res call({List<DownloadData> downloadDataList});
+  $Res call({Map<String, List<DownloadData>> downloadDataList});
 }
 
 /// @nodoc
@@ -60,7 +62,7 @@ class _$DownloadShoesStateCopyWithImpl<$Res>
       downloadDataList: downloadDataList == freezed
           ? _value.downloadDataList
           : downloadDataList // ignore: cast_nullable_to_non_nullable
-              as List<DownloadData>,
+              as Map<String, List<DownloadData>>,
     ));
   }
 }
@@ -72,7 +74,7 @@ abstract class _$DownloadShoesStateCopyWith<$Res>
           _DownloadShoesState value, $Res Function(_DownloadShoesState) then) =
       __$DownloadShoesStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<DownloadData> downloadDataList});
+  $Res call({Map<String, List<DownloadData>> downloadDataList});
 }
 
 /// @nodoc
@@ -94,7 +96,7 @@ class __$DownloadShoesStateCopyWithImpl<$Res>
       downloadDataList: downloadDataList == freezed
           ? _value.downloadDataList
           : downloadDataList // ignore: cast_nullable_to_non_nullable
-              as List<DownloadData>,
+              as Map<String, List<DownloadData>>,
     ));
   }
 }
@@ -102,11 +104,11 @@ class __$DownloadShoesStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DownloadShoesState implements _DownloadShoesState {
-  const _$_DownloadShoesState({this.downloadDataList = const []});
+  const _$_DownloadShoesState({this.downloadDataList = const {}});
 
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: const {})
   @override
-  final List<DownloadData> downloadDataList;
+  final Map<String, List<DownloadData>> downloadDataList;
 
   @override
   String toString() {
@@ -134,11 +136,13 @@ class _$_DownloadShoesState implements _DownloadShoesState {
 }
 
 abstract class _DownloadShoesState implements DownloadShoesState {
-  const factory _DownloadShoesState({List<DownloadData> downloadDataList}) =
+  const factory _DownloadShoesState(
+          {Map<String, List<DownloadData>> downloadDataList}) =
       _$_DownloadShoesState;
 
   @override
-  List<DownloadData> get downloadDataList => throw _privateConstructorUsedError;
+  Map<String, List<DownloadData>> get downloadDataList =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DownloadShoesStateCopyWith<_DownloadShoesState> get copyWith =>

@@ -58,6 +58,6 @@ class UploadDataController extends StateNotifier<UploadDataState> {
 
 }
 
-final uploadDataProvider = StateNotifierProvider<UploadDataController, UploadDataState>((ref)
+final uploadDataProvider = StateNotifierProvider.autoDispose<UploadDataController, UploadDataState>((ref)
   => UploadDataController()
 );

@@ -10,7 +10,7 @@ part 'download_shoes_notifier.freezed.dart';
 @freezed
 class DownloadShoesState with _$DownloadShoesState {
   const factory DownloadShoesState({
-    @Default([]) List<DownloadData> downloadDataList,
+    @Default({}) Map<String, List<DownloadData>> downloadDataList,
   }) = _DownloadShoesState;
 }
 
@@ -20,6 +20,17 @@ class DownloadShoesController extends StateNotifier<DownloadShoesState> with Loc
   @override
   void initState() async{
     super.initState();
+    if (FirebaseAuth.instance.currentUser != null) {
+      final userShoesItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Shoes");
+      state = state.copyWith(downloadDataList: userShoesItems);
+    }
+  }
+
+  List<DownloadData> provideColorItems (String colorValue) {
+    return state.downloadDataList[colorValue]!;
+  }
+
+  void reload() async{
     if (FirebaseAuth.instance.currentUser != null) {
       final userShoesItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Shoes");
       state = state.copyWith(downloadDataList: userShoesItems);

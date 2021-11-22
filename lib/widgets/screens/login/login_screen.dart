@@ -1,9 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:from_color/riverpods/color_notifier.dart';
+import 'package:from_color/riverpods/download_bottoms_notifier.dart';
+import 'package:from_color/riverpods/download_outer_notifier.dart';
+import 'package:from_color/riverpods/download_shoes_notifier.dart';
+import 'package:from_color/riverpods/download_tops_notifier.dart';
 import 'package:from_color/riverpods/login_notifier.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:from_color/gen/assets.gen.dart';
+
 
 class LoginScreen extends ConsumerWidget {
   LoginScreen();
@@ -22,28 +29,48 @@ class LoginScreen extends ConsumerWidget {
     final state = watch(loginProvider);
         return Scaffold(
             appBar: AppBar(
-              title: const Text("ログイン"),
+              title: Text(
+                "Login",
+                style: TextStyle(
+                    fontFamily: "Roboto",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26
+                ),
+              ),
+              shadowColor: Colors.transparent,
             ),
             body: Center(
               child: Container(
+                color: Colors.white,
+                width: double.maxFinite,
                 child: state.duringLogin
                     ? Container(
-                        child: LoadingIndicator(
-                          indicatorType: Indicator.ballSpinFadeLoader,
-                          colors: _kDefaultRainbowColors,
-                          strokeWidth: 3,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: MediaQuery.of(context).size.width * 0.4,
+                          child: LoadingIndicator(
+                            indicatorType: Indicator.ballSpinFadeLoader,
+                            colors: _kDefaultRainbowColors,
+                            strokeWidth: 3,
+                          ),
                         )
                       )
                     : Column(
                         children: [
-                          Spacer(),
+                          SizedBox(height: MediaQuery.of(context).size.width * 0.3),
+                          Image(
+                            image: Assets.icon,
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            height: MediaQuery.of(context).size.width * 0.6,
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                                 "Welcome!",
                               style: TextStyle(
                                 fontSize: 24,
-                                fontFamily: "RegularRoboto"
+                                fontFamily: "Roboto",
+                                fontWeight: FontWeight.bold
                               ),
                             ),
                           ),
@@ -53,6 +80,10 @@ class LoginScreen extends ConsumerWidget {
                             onPressed: () async {
                               try {
                                 await context.read(loginProvider.notifier).googleSignin();
+                                context.read(downloadOuterProvider.notifier).initState();
+                                context.read(downloadTopsProvider.notifier).initState();
+                                context.read(downloadBottomsProvider.notifier).initState();
+                                context.read(downloadShoesProvider.notifier).initState();
                               } catch (e) {
                                 print(e.toString());
                                 showDialog(

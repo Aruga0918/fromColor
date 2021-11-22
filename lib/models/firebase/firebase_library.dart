@@ -79,16 +79,19 @@ Future<void> uploadImage({
           });
 }
 
-Future<List<DownloadData>> getCategoryItems({required String userId, required String category}) async {
-  final List<DownloadData> categoryItems = [];
+Future<Map<String, List<DownloadData>>> getCategoryItems({required String userId, required String category}) async {
+  final Map<String, List<DownloadData>> categoryItems = {};
   for (final colorCategory in ColorList.categoryList.keys) {
+    final List<DownloadData> colorItems = [];
     final CollectionReference categoryCollectionRef =
     FirebaseFirestore.instance.collection('usersCloset/$userId/$category/initial/$colorCategory'); //ver1.0ではサブカテゴリ１つのみ
     final querySnapShot = await categoryCollectionRef.get();
     final queryDocSnapshot = querySnapShot.docs; //colorCategory内のドキュメントリスト
-    queryDocSnapshot.map((DocumentSnapshot doc) {
-      categoryItems.add(DownloadData.snapshot2DLData(snapshot: doc));
+    queryDocSnapshot.forEach((DocumentSnapshot doc) async {
+      final DownloadData data = await DownloadData.snapshot2DLData(snapshot: doc);
+      colorItems.add(data);
     });
+    categoryItems[colorCategory] = colorItems;
   }
   return categoryItems;
 }

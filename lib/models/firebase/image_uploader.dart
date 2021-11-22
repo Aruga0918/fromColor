@@ -9,9 +9,9 @@ class ImageUploader {
   // ImagePickerで画像を取得する場合は、画像がローカルフォルダに保存されるので、そのパスを取得し、ローカルパスとして記憶しておきます
   static Future<String?> selectImage(BuildContext context) async{
 
-    const String SELECT_ICON = "アイコンを選択";
+    const String SELECT_ICON = "画像を選択";
     const List<String> SELECT_ICON_OPTIONS =
-    ["写真から選択", "写真を撮影"];
+    ["フォルダから選択", "カメラで撮影"];
     const int GALLERY = 0;
     const int CAMERA = 1;
 
@@ -48,7 +48,7 @@ class ImageUploader {
       print(imgSrc);
     }
 
-    final PickedFile? pickedFile = await picker.getImage(source: imgSrc);
+    final PickedFile? pickedFile = await picker.getImage(source: imgSrc, imageQuality: 10);
     print(pickedFile);
 
     if (pickedFile == null){

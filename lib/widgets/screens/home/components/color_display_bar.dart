@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:from_color/gen/assets.gen.dart';
+import 'package:from_color/riverpods/palette_download_outer_notifier.dart';
+import 'package:from_color/widgets/screens/home/components/item_listview.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 
 class ColorDisplayBar extends StatelessWidget {
   const ColorDisplayBar({
     Key? key,
     required this.selectedColor,
     required this.clothType,
+    required this.provider,
     required this.onTap,
+    required this.setColorFunc,
     required this.isLogin
   }) : super(key: key);
   final Color selectedColor;
   final String clothType;
+  final StateNotifierProvider provider;
   final Function() onTap;
+  final Function setColorFunc;
   final bool isLogin;
 
   @override
@@ -52,39 +61,21 @@ class ColorDisplayBar extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          width: MediaQuery.of(context).size.width * 0.45,
-          height: MediaQuery.of(context).size.height * 0.1,
-          alignment: Alignment.center,
-          child: isLogin
-            ? ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: [
-                if (clothType == "アウター") Image(
-                  image: Assets.images.sampleBlouzon,
-                  height: MediaQuery.of(context).size.height * 0.1
-                )
-                else if (clothType == "トップス") Image(
-                  image: Assets.images.sampleTops,
-                  height: MediaQuery.of(context).size.height * 0.1
-                )
-                else if (clothType == "ボトムス") Image(
-                  image: Assets.images.sampleBottoms,
-                  height: MediaQuery.of(context).size.height * 0.1
-                  )
-                else Image(
-                  image: Assets.images.sampleShoes,
-                  height: MediaQuery.of(context).size.height * 0.1
-                  )
-              ],
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.45,
+            height: MediaQuery.of(context).size.height * 0.08,
+            alignment: Alignment.center,
+            child: isLogin
+              ? ItemListView(provider: provider, setColorFunc: setColorFunc,)
+              : Text(
+                "ログインしていません",
+                style: TextStyle(
+                  fontSize: 12
+                ),
             )
-            : Text(
-              "ログインしていません",
-              style: TextStyle(
-                fontSize: 12
-              ),
-          )
+          ),
         )
       ],
     );
