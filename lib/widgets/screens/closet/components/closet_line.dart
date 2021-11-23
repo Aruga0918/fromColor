@@ -47,6 +47,7 @@ class ClosetLine extends ConsumerWidget {
                 children: [
                   Text(clothCategory),
                   InkWell(
+                    key: Key(clothCategory),
                     onTap: onTap,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,

@@ -32,8 +32,11 @@ class ClosetScreen extends StatelessWidget {
             provider: downloadOuterProvider,
             onTap: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ClosetAddDialog(category: 'Outer', provider: downloadOuterProvider)
-              )).then((flag) { if (flag) {context.read(downloadOuterProvider.notifier).reload();}});
+                  builder: (context) => ClosetAddDialog(
+                      category: 'Outer',
+                      provider: downloadOuterProvider,
+                  )
+              )).then((result) { if (result == true) {context.read(downloadOuterProvider.notifier).reload();}});
             },
           ),
           ClosetLine(
@@ -42,8 +45,12 @@ class ClosetScreen extends StatelessWidget {
             provider: downloadTopsProvider,
             onTap: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ClosetAddDialog(category: 'Tops', provider: downloadTopsProvider)
-              )).then((flag) { if (flag) {context.read(downloadTopsProvider.notifier).reload();}});
+                  builder: (context) => ClosetAddDialog(
+                      category: 'Tops',
+                      provider: downloadTopsProvider,
+                  )
+                      //テストを通すためにresult == trueとしています
+              )).then((result) { if (result == true) {context.read(downloadTopsProvider.notifier).reload();}});
             },
           ),
           ClosetLine(
@@ -52,8 +59,11 @@ class ClosetScreen extends StatelessWidget {
             provider: downloadBottomsProvider,
             onTap: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ClosetAddDialog(category: 'Bottoms', provider: downloadBottomsProvider)
-              )).then((flag) {if (flag) {context.read(downloadBottomsProvider.notifier).reload();}});
+                  builder: (context) => ClosetAddDialog(
+                      category: 'Bottoms',
+                      provider: downloadBottomsProvider,
+                  )
+              )).then((result) {if (result == true) {context.read(downloadBottomsProvider.notifier).reload();}});
             },
           ),
           ClosetLine(
@@ -62,8 +72,11 @@ class ClosetScreen extends StatelessWidget {
             provider: downloadShoesProvider,
             onTap: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ClosetAddDialog(category: 'Shoes', provider: downloadShoesProvider)
-              )).then((flag) { if (flag) {context.read(downloadShoesProvider.notifier).reload();}});
+                  builder: (context) => ClosetAddDialog(
+                      category: 'Shoes',
+                      provider: downloadShoesProvider,
+                  )
+              )).then((result) { if (result == true) {context.read(downloadShoesProvider.notifier).reload();}});
             },
           ),
         ],

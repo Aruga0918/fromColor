@@ -25,47 +25,53 @@ class ColorDisplayBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width * 0.45,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                 color: Colors.black26,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.01),
+      child: Column(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.45,
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                   color: Colors.black26,
+                )
               )
-            )
-          ),
-          child: Row(
-            children: [
-              Text(clothType),
-              Spacer(),
-              InkWell(
-                onTap: onTap,
-                child: CircleAvatar(
-                  backgroundColor: Colors.black26,
-                  radius: MediaQuery.of(context).size.width * 0.05,
+            ),
+            child: Row(
+              children: [
+                Text(
+                    clothType,
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.0173),
+                ),
+                Spacer(),
+                InkWell(
+                  onTap: onTap,
                   child: CircleAvatar(
-                    radius: MediaQuery.of(context).size.width * 0.045,
-                    backgroundColor: selectedColor,
+                    backgroundColor: Colors.black26,
+                    radius: MediaQuery.of(context).size.height * 0.018,
+                    child: CircleAvatar(
+                      radius: MediaQuery.of(context).size.height * 0.0173,
+                      backgroundColor: selectedColor,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: Padding(
-                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.02),
-                  child: Text(selectedColor.value.toRadixString(16)),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.02),
+                    child: Text(
+                      selectedColor.value.toRadixString(16),
+                      style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.0173)
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
+          Container(
             width: MediaQuery.of(context).size.width * 0.45,
-            height: MediaQuery.of(context).size.height * 0.08,
+            height: MediaQuery.of(context).size.height * 0.1,
             alignment: Alignment.center,
             child: isLogin
               ? ItemListView(provider: provider, setColorFunc: setColorFunc,)
@@ -75,9 +81,9 @@ class ColorDisplayBar extends StatelessWidget {
                   fontSize: 12
                 ),
             )
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

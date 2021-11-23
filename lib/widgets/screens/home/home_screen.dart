@@ -39,47 +39,47 @@ class HomeScreen extends ConsumerWidget {
             child: FigureWoman(),
           ),
           Padding(
-            padding: EdgeInsets.only(right: MediaQuery.of(context).size.height *0.02),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.75,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ColorDisplayBar(
-                    selectedColor: selectedColor.outerColor,
-                    clothType: "アウター",
-                    provider: paletteDownloadOuterProvider,
-                    onTap: () => context.read(colorProvider.notifier).showOuterColorPicker(context),
-                    setColorFunc: context.read(colorProvider.notifier).setOuterColor,
-                    isLogin: isLogin,
-                  ),
-                  ColorDisplayBar(
-                    selectedColor: selectedColor.innerColor,
-                    clothType: "トップス",
-                    provider: paletteDownloadTopsProvider,
-                    onTap: () => context.read(colorProvider.notifier).showInnerColorPicker(context),
-                    setColorFunc: context.read(colorProvider.notifier).setInnerColor,
-                    isLogin: isLogin,
-                  ),
-                  ColorDisplayBar(
-                    selectedColor: selectedColor.bottomsColor,
-                    clothType: "ボトムス",
-                    provider: paletteDownloadBottomsProvider,
-                    onTap: () => context.read(colorProvider.notifier).showBottomsColorPicker(context),
-                    setColorFunc: context.read(colorProvider.notifier).setBottomsColor,
-                    isLogin: isLogin,
-                  ),
-                  ColorDisplayBar(
-                    selectedColor: selectedColor.shoesColor,
-                    clothType: "靴",
-                    provider: paletteDownloadShoesProvider,
-                    onTap: () => context.read(colorProvider.notifier).showShoesColorPicker(context),
-                    setColorFunc: context.read(colorProvider.notifier).setShoesColor,
-                    isLogin: isLogin,
-                  ),
-                ],
-              ),
+            padding: EdgeInsets.only(
+                right: MediaQuery.of(context).size.height *0.02,
+              bottom: MediaQuery.of(context).size.height *0.03
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ColorDisplayBar(
+                  selectedColor: selectedColor.outerColor,
+                  clothType: "アウター",
+                  provider: paletteDownloadOuterProvider,
+                  onTap: () => context.read(colorProvider.notifier).showOuterColorPicker(context),
+                  setColorFunc: context.read(colorProvider.notifier).setOuterColor,
+                  isLogin: isLogin,
+                ),
+                ColorDisplayBar(
+                  selectedColor: selectedColor.innerColor,
+                  clothType: "トップス",
+                  provider: paletteDownloadTopsProvider,
+                  onTap: () => context.read(colorProvider.notifier).showInnerColorPicker(context),
+                  setColorFunc: context.read(colorProvider.notifier).setInnerColor,
+                  isLogin: isLogin,
+                ),
+                ColorDisplayBar(
+                  selectedColor: selectedColor.bottomsColor,
+                  clothType: "ボトムス",
+                  provider: paletteDownloadBottomsProvider,
+                  onTap: () => context.read(colorProvider.notifier).showBottomsColorPicker(context),
+                  setColorFunc: context.read(colorProvider.notifier).setBottomsColor,
+                  isLogin: isLogin,
+                ),
+                ColorDisplayBar(
+                  selectedColor: selectedColor.shoesColor,
+                  clothType: "靴",
+                  provider: paletteDownloadShoesProvider,
+                  onTap: () => context.read(colorProvider.notifier).showShoesColorPicker(context),
+                  setColorFunc: context.read(colorProvider.notifier).setShoesColor,
+                  isLogin: isLogin,
+                ),
+              ],
             ),
           )
         ],

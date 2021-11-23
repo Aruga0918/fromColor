@@ -49,7 +49,7 @@ class $AssetsImagesTyakkoGen {
   AssetGenImage get boyOuter =>
       const AssetGenImage('assets/images/tyakko/boy_outer.PNG');
   AssetGenImage get boyOutline =>
-      const AssetGenImage('assets/images/tyakko/boy_outline.png');
+      const AssetGenImage('assets/images/tyakko/boy_outline.PNG');
   AssetGenImage get boyShoes =>
       const AssetGenImage('assets/images/tyakko/boy_shoes.PNG');
   AssetGenImage get boyTops =>

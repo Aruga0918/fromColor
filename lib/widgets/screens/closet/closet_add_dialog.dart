@@ -23,7 +23,7 @@ class ClosetAddDialog extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Add Item",
+          "Add $category Item",
           style: TextStyle(
               fontFamily: "Roboto",
               fontWeight: FontWeight.bold,
@@ -35,7 +35,7 @@ class ClosetAddDialog extends ConsumerWidget {
       body: Align(
         alignment: Alignment.center,
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -43,8 +43,8 @@ class ClosetAddDialog extends ConsumerWidget {
               Container(
                 alignment: Alignment.center,
                 color: Colors.grey,
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.height * 0.3,
+                height: MediaQuery.of(context).size.height * 0.3,
                 child: InkWell(
                   onTap: () => context.read(uploadDataProvider.notifier).getImagePath(context: context),
                   child: selectedImage.isNotEmpty
@@ -84,6 +84,7 @@ class ClosetAddDialog extends ConsumerWidget {
                 ),
               ),
               InkWell(
+                key: Key("$category Add"),
                 onTap: () async{
                   if (selectedColor == Colors.transparent) {
                     showDialog(
@@ -95,7 +96,7 @@ class ClosetAddDialog extends ConsumerWidget {
                             SimpleDialogOption(
                               child: const Text('閉じる'),
                               onPressed: () {
-                                Navigator.of(alertContext).pop();
+                                Navigator.of(alertContext).pop(context);
                               },
                             ),
                           ],

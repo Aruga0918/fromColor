@@ -16,10 +16,10 @@ class FigureWoman extends ConsumerWidget {
     final bool isGirl = watch(colorProvider).isGirl;
 
     return Container(
-      height: MediaQuery.of(context).size.width * 1.2,
       width: MediaQuery.of(context).size.width * 0.4,
       child: Column(
         children: [
+          Spacer(),
           InkWell(
               onTap: () => context.read(colorProvider.notifier).reverseSex(),
               child: Row(
@@ -59,13 +59,12 @@ class FigureWoman extends ConsumerWidget {
                 ],
               )),
           Container(
-            height: MediaQuery.of(context).size.width * 1.1,
             child: Stack(
               alignment: AlignmentDirectional.centerStart,
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  height: double.maxFinite,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   child: Image(
                     image: isGirl
                       ? Assets.images.tyakko.girlShoes
@@ -76,7 +75,7 @@ class FigureWoman extends ConsumerWidget {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  height: double.maxFinite,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   child: Image(
                     image: isGirl
                       ? Assets.images.tyakko.girlBottoms
@@ -87,7 +86,7 @@ class FigureWoman extends ConsumerWidget {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  height: double.maxFinite,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   child: Image(
                     image: isGirl
                       ? Assets.images.tyakko.girlTops
@@ -98,7 +97,7 @@ class FigureWoman extends ConsumerWidget {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  height: double.maxFinite,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   child: Image(
                     image: isGirl
                       ? Assets.images.tyakko.girlOuter
@@ -109,7 +108,7 @@ class FigureWoman extends ConsumerWidget {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  height: double.maxFinite,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   child: Image(
                     image: isGirl
                       ? Assets.images.tyakko.girlOutline
@@ -132,6 +131,7 @@ class FigureWoman extends ConsumerWidget {
               ),
             ],
           ),
+          Spacer()
         ],
       ),
     );
