@@ -6,7 +6,9 @@ enum PreferenceKey {
   //ログイン保持のためのフラグ
   isLogin,
   //最後にどちらのイラストを使ったかの記録
-  isGirl
+  isGirl,
+  //広告表示用カウント
+  adCount
 }
 
 class Preference {
