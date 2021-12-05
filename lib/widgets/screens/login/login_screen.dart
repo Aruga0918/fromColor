@@ -43,11 +43,12 @@ class LoginScreen extends ConsumerWidget {
               child: Container(
                 color: Colors.white,
                 width: double.maxFinite,
+                height: double.maxFinite,
                 child: state.duringLogin
                     ? Container(
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.width * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          height: MediaQuery.of(context).size.width * 0.3,
                           child: LoadingIndicator(
                             indicatorType: Indicator.ballSpinFadeLoader,
                             colors: _kDefaultRainbowColors,

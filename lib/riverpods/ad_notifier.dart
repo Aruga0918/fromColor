@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/preference/shared_preference.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:io';

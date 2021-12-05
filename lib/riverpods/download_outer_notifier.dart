@@ -16,7 +16,9 @@ class DownloadOuterState with _$DownloadOuterState {
 }
 
 class DownloadOuterController extends StateNotifier<DownloadOuterState> with LocatorMixin {
-  DownloadOuterController() : super(const DownloadOuterState());
+  DownloadOuterController() : super(const DownloadOuterState()) {
+    initState();
+  }
 
   @override
   void initState() async{
@@ -30,6 +32,12 @@ class DownloadOuterController extends StateNotifier<DownloadOuterState> with Loc
   void reload() async{
     final userOuterItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Outer");
     state = state.copyWith(downloadDataList: userOuterItems);
+  }
+
+  void reload2({required DownloadData newItem, required String colorCategory}) {
+    final previousData = state.downloadDataList;
+    previousData[colorCategory]!.add(newItem);
+    state = state.copyWith(downloadDataList: previousData);
   }
 
   List<DownloadData> provideColorItems (String colorValue) {

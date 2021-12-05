@@ -49,7 +49,7 @@ Future signout() async {
 
 ////////////////// Storage methods //////////////////
 
-Future<void> uploadImage({
+Future<String?> uploadImage({
   required String userId,
   required String category,
   required String subCategory,
@@ -64,7 +64,7 @@ Future<void> uploadImage({
             if (remoteImagePath == "error") {
               print("no remotePath");
               showAlertDialog(context: context);
-              return;
+              return "failed";
             }
             ImageUploader.addFilePath(
                 userId: userId,
@@ -76,6 +76,7 @@ Future<void> uploadImage({
                 colorValue: colorValue,
                 fileName: datetime
             );
+            return remoteImagePath;
           });
 }
 

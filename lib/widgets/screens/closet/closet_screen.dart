@@ -36,7 +36,8 @@ class ClosetScreen extends StatelessWidget {
                       category: 'Outer',
                       provider: downloadOuterProvider,
                   )
-              )).then((result) { if (result == true) {context.read(downloadOuterProvider.notifier).reload();}});
+              ));
+              // .then((result) { if (result == true) {context.read(downloadOuterProvider.notifier).reload();}});
             },
           ),
           ClosetLine(
@@ -50,7 +51,8 @@ class ClosetScreen extends StatelessWidget {
                       provider: downloadTopsProvider,
                   )
                       //テストを通すためにresult == trueとしています
-              )).then((result) { if (result == true) {context.read(downloadTopsProvider.notifier).reload();}});
+              ));
+                  // .then((result) { if (result == true) {context.read(downloadTopsProvider.notifier).reload();}});
             },
           ),
           ClosetLine(
@@ -63,7 +65,8 @@ class ClosetScreen extends StatelessWidget {
                       category: 'Bottoms',
                       provider: downloadBottomsProvider,
                   )
-              )).then((result) {if (result == true) {context.read(downloadBottomsProvider.notifier).reload();}});
+              ));
+                  // .then((result) {if (result == true) {context.read(downloadBottomsProvider.notifier).reload();}});
             },
           ),
           ClosetLine(
@@ -76,7 +79,8 @@ class ClosetScreen extends StatelessWidget {
                       category: 'Shoes',
                       provider: downloadShoesProvider,
                   )
-              )).then((result) { if (result == true) {context.read(downloadShoesProvider.notifier).reload();}});
+              ));
+                  // .then((result) { if (result == true) {context.read(downloadShoesProvider.notifier).reload();}});
             },
           ),
         ],

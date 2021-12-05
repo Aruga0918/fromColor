@@ -15,7 +15,9 @@ class DownloadShoesState with _$DownloadShoesState {
 }
 
 class DownloadShoesController extends StateNotifier<DownloadShoesState> with LocatorMixin {
-  DownloadShoesController() : super(const DownloadShoesState());
+  DownloadShoesController() : super(const DownloadShoesState()) {
+    initState();
+  }
 
   @override
   void initState() async{
@@ -35,6 +37,12 @@ class DownloadShoesController extends StateNotifier<DownloadShoesState> with Loc
       final userShoesItems = await fl.getCategoryItems(userId: FirebaseAuth.instance.currentUser!.uid, category: "Shoes");
       state = state.copyWith(downloadDataList: userShoesItems);
     }
+  }
+
+  void reload2({required DownloadData newItem, required String colorCategory}) {
+    final previousData = state.downloadDataList;
+    previousData[colorCategory]!.add(newItem);
+    state = state.copyWith(downloadDataList: previousData);
   }
 
 }

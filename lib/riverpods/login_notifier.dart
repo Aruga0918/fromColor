@@ -36,6 +36,7 @@ class LoginController extends StateNotifier<LoginState> with LocatorMixin{
       state = state.copyWith(duringLogin: true);
       await fl.googleSignin();
       state = state.copyWith(isLogin: true, duringLogin: false);
+      Preference().setBool(PreferenceKey.isLogin, true);
     } catch(e) {
       state = state.copyWith(duringLogin: false);
       print(e);

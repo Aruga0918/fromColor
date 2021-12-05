@@ -3,6 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/models/colorList.dart';
+import 'package:from_color/models/entities/download_data.dart';
+import 'package:from_color/riverpods/download_bottoms_notifier.dart';
+import 'package:from_color/riverpods/download_outer_notifier.dart';
+import 'package:from_color/riverpods/download_shoes_notifier.dart';
+import 'package:from_color/riverpods/download_tops_notifier.dart';
 import 'package:from_color/riverpods/upload_data_notifier.dart';
 import 'package:from_color/models/firebase/firebase_library.dart' as fl;
 
@@ -106,7 +111,7 @@ class ClosetAddDialog extends ConsumerWidget {
                   }
                   final colorCategory = await ColorList.getColorCategory(selectedColor);
                   print(colorCategory);
-                  await fl.uploadImage(
+                  final remotePath = await fl.uploadImage(
                       userId: FirebaseAuth.instance.currentUser!.uid,
                       category: category,
                       subCategory: "initial",
@@ -114,7 +119,46 @@ class ClosetAddDialog extends ConsumerWidget {
                       colorValue: selectedColor.value.toRadixString(16),
                       localImagePath: selectedImage,
                       context: context);
-                  Navigator.pop(context, true);
+                  if (remotePath != "failed" && remotePath != null) {
+                    final newItem = DownloadData(
+                        localImagePath: selectedImage,
+                        remoteImagePath: remotePath,
+                        itemColorValue: selectedColor.value.toRadixString(16));
+                  //NOTE: reload2()をよぶ
+                    switch (category) {
+                      case 'Outer':
+                        context.read(downloadOuterProvider.notifier).reload2(
+                            newItem: newItem,
+                            colorCategory: colorCategory
+                        );
+                        Navigator.pop(context);
+                        break;
+                      case 'Tops':
+                        context.read(downloadTopsProvider.notifier).reload2(
+                            newItem: newItem,
+                            colorCategory: colorCategory
+                        );
+                        Navigator.pop(context);
+                        break;
+                      case 'Bottoms':
+                        context.read(downloadBottomsProvider.notifier).reload2(
+                            newItem: newItem,
+                            colorCategory: colorCategory
+                        );
+                        Navigator.pop(context);
+                        break;
+                      case 'Shoes':
+                        context.read(downloadShoesProvider.notifier).reload2(
+                            newItem: newItem,
+                            colorCategory: colorCategory
+                        );
+                        Navigator.pop(context);
+                        break;
+                      default:
+                        break;
+                    }
+                  }
+                  Navigator.pop(context);
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.35,
