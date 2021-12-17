@@ -49,7 +49,7 @@ Future signout() async {
 
 ////////////////// Storage methods //////////////////
 
-Future<String?> uploadImage({
+Future<Map<String, String>?> uploadImage({
   required String userId,
   required String category,
   required String subCategory,
@@ -60,13 +60,13 @@ Future<String?> uploadImage({
 }) async {
   final datetime = DateTime.now().toString();
   ImageUploader.uploadFile(sourcePath: localImagePath, userId: userId, category: category, fileName: datetime).then(
-          (remoteImagePath) {
+          (remoteImagePath) async{
             if (remoteImagePath == "error") {
               print("no remotePath");
               showAlertDialog(context: context);
               return "failed";
             }
-            ImageUploader.addFilePath(
+            final filePath = await ImageUploader.addFilePath(
                 userId: userId,
                 category: category,
                 subCategory: subCategory,
@@ -76,7 +76,7 @@ Future<String?> uploadImage({
                 colorValue: colorValue,
                 fileName: datetime
             );
-            return remoteImagePath;
+            return {"remoteImagePath": remoteImagePath, "filePath": filePath};
           });
 }
 

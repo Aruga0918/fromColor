@@ -111,7 +111,7 @@ class ClosetAddDialog extends ConsumerWidget {
                   }
                   final colorCategory = await ColorList.getColorCategory(selectedColor);
                   print(colorCategory);
-                  final remotePath = await fl.uploadImage(
+                  final uploadData = await fl.uploadImage(
                       userId: FirebaseAuth.instance.currentUser!.uid,
                       category: category,
                       subCategory: "initial",
@@ -119,11 +119,13 @@ class ClosetAddDialog extends ConsumerWidget {
                       colorValue: selectedColor.value.toRadixString(16),
                       localImagePath: selectedImage,
                       context: context);
-                  if (remotePath != "failed" && remotePath != null) {
+                  if (uploadData!["remotePath"] != "failed" && uploadData["remotePath"] != null) {
                     final newItem = DownloadData(
                         localImagePath: selectedImage,
-                        remoteImagePath: remotePath,
-                        itemColorValue: selectedColor.value.toRadixString(16));
+                        remoteImagePath: uploadData["remotePath"]!,
+                        itemColorValue: selectedColor.value.toRadixString(16),
+                        fileName: uploadData["filePath"]!
+                    );
                   //NOTE: reload2()をよぶ
                     switch (category) {
                       case 'Outer':
