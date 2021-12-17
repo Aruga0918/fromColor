@@ -7,6 +7,8 @@ import 'package:from_color/widgets/screens/user/components/round_box.dart';
 import 'package:from_color/models/firebase/firebase_library.dart' as fl;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/widgets/screens/user/components/terms_view.dart';
+import 'package:from_color/widgets/screens/user/components/termString.dart' as term;
+
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -75,7 +77,7 @@ class SettingScreen extends StatelessWidget {
                           builder: (termContext) {
                             return SimpleDialog(
                               children: [
-                                TermsView()
+                                TermsView(displayText: term.terms,)
                               ],
                             );
                           }
@@ -83,7 +85,21 @@ class SettingScreen extends StatelessWidget {
                     },
                     child: RoundedBox(title: "利用規約", icon: Icons.attach_file)
                   ),
-                  RoundedBox(title: "プライバシー\nポリシー", icon: Icons.privacy_tip_outlined),
+                  InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (termContext) {
+                              return SimpleDialog(
+                                children: [
+                                  TermsView(displayText: term.privacyPolicy,)
+                                ],
+                              );
+                            }
+                        );
+                      },
+                      child: RoundedBox(title: "プライバシー\nポリシー", icon: Icons.privacy_tip_outlined)
+                  ),
                 ],
               ),
             ),

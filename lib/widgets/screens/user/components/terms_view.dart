@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'termString.dart' as term;
 
 
 class TermsView extends StatelessWidget {
+  const TermsView({
+    Key? key,
+    required this.displayText,
+  }) : super(key: key);
+  final String displayText;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +14,7 @@ class TermsView extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.027),
         child: Text(
-          term.terms,
+          displayText,
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.027
           ),
