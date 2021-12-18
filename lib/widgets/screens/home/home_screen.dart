@@ -73,7 +73,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 ColorDisplayBar(
                   selectedColor: selectedColor.shoesColor,
-                  clothType: "靴",
+                  clothType: "シューズ",
                   provider: paletteDownloadShoesProvider,
                   onTap: () => context.read(colorProvider.notifier).showShoesColorPicker(context),
                   setColorFunc: context.read(colorProvider.notifier).setShoesColor,

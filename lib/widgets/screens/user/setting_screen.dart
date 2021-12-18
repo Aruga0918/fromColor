@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:from_color/gen/assets.gen.dart';
 import 'package:from_color/preference/shared_preference.dart';
 import 'package:from_color/riverpods/login_notifier.dart';
+import 'package:from_color/widgets/screens/user/components/dialog_close_button.dart';
 import 'package:from_color/widgets/screens/user/components/round_box.dart';
 import 'package:from_color/models/firebase/firebase_library.dart' as fl;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/widgets/screens/user/components/terms_view.dart';
 import 'package:from_color/widgets/screens/user/components/termString.dart' as term;
+import 'package:from_color/widgets/screens/user/components/tutorial_view.dart';
 
 
 class SettingScreen extends StatelessWidget {
@@ -53,12 +55,23 @@ class SettingScreen extends StatelessWidget {
                     },
                     child: RoundedBox(title: "ログアウト", icon: Icons.logout)
                   ),
-                  RoundedBox(title: "使い方", icon: Icons.info_outline),
+                  InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (context) {
+                              return TutorialView();
+                            }
+                        );
+                      },
+                      child: RoundedBox(title: "使い方", icon: Icons.info_outline)
+                  ),
                   InkWell(
                     onTap: () {
                       showLicensePage(
                         context: context,
-                        applicationName: "byColor",
+                        applicationName: "fromColor",
                         applicationVersion: "Ver.1.0",
                         applicationIcon: Image(
                           image: Assets.icon,
@@ -75,9 +88,21 @@ class SettingScreen extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (termContext) {
-                            return SimpleDialog(
+                            return Column(
                               children: [
-                                TermsView(displayText: term.terms,)
+                                Material(
+                                  color: Colors.transparent,
+                                  child: DialogCloseButton()
+                                ),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.8,
+                                  child: SimpleDialog(
+                                    insetPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
+                                    children: [
+                                      TermsView(displayText: term.terms,),
+                                    ],
+                                  ),
+                                ),
                               ],
                             );
                           }
@@ -90,9 +115,21 @@ class SettingScreen extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (termContext) {
-                              return SimpleDialog(
+                              return Column(
                                 children: [
-                                  TermsView(displayText: term.privacyPolicy,)
+                                  Material(
+                                    color: Colors.transparent,
+                                    child: DialogCloseButton()
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.8,
+                                    child: SimpleDialog(
+                                      insetPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
+                                      children: [
+                                        TermsView(displayText: term.privacyPolicy,)
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               );
                             }

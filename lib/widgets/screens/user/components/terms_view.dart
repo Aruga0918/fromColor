@@ -12,7 +12,7 @@ class TermsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.027),
+        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.02),
         child: Text(
           displayText,
           style: TextStyle(

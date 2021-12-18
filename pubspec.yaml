@@ -61,6 +61,7 @@ dependencies:
   flutter_native_splash: ^1.2.3
   webview_flutter: ^2.0.13
   package_info: ^2.0.2
+  page_view_indicators: ^2.0.0
 
 dev_dependencies:
   build_runner: ^2.1.2
@@ -81,6 +82,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/tyakko/
+    - assets/images/tutorial/
     - assets/icon.png
 
   # The following line ensures that the Material Icons font is

@@ -70,7 +70,7 @@ class ClosetScreen extends StatelessWidget {
             },
           ),
           ClosetLine(
-            clothCategory: "靴",
+            clothCategory: "シューズ",
             ownItems: ClothDisplay.MockShoes,
             provider: downloadShoesProvider,
             onTap: (){

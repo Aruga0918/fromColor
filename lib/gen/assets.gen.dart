@@ -38,7 +38,29 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/shoes_canvas_color.PNG');
   AssetGenImage get shoesCanvasOutline =>
       const AssetGenImage('assets/images/shoes_canvas_outline.PNG');
+  $AssetsImagesTutorialGen get tutorial => const $AssetsImagesTutorialGen();
   $AssetsImagesTyakkoGen get tyakko => const $AssetsImagesTyakkoGen();
+}
+
+class $AssetsImagesTutorialGen {
+  const $AssetsImagesTutorialGen();
+
+  AssetGenImage get closetScreen =>
+      const AssetGenImage('assets/images/tutorial/closet_screen.png');
+  AssetGenImage get howtoCloset1 =>
+      const AssetGenImage('assets/images/tutorial/howto_closet_1.png');
+  AssetGenImage get howtoCloset2 =>
+      const AssetGenImage('assets/images/tutorial/howto_closet_2.png');
+  AssetGenImage get howtoPalette1 =>
+      const AssetGenImage('assets/images/tutorial/howto_palette_1.png');
+  AssetGenImage get howtoPalette2 =>
+      const AssetGenImage('assets/images/tutorial/howto_palette_2.png');
+  AssetGenImage get howtoPalette3 =>
+      const AssetGenImage('assets/images/tutorial/howto_palette_3.png');
+  AssetGenImage get loginScreen =>
+      const AssetGenImage('assets/images/tutorial/login_screen.png');
+  AssetGenImage get paletteScreen =>
+      const AssetGenImage('assets/images/tutorial/palette_screen.png');
 }
 
 class $AssetsImagesTyakkoGen {
@@ -71,6 +93,7 @@ class Assets {
 
   static const AssetGenImage icon = AssetGenImage('assets/icon.png');
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const String termsOfService = 'assets/termsOfService.html';
 }
 
 class AssetGenImage extends AssetImage {
