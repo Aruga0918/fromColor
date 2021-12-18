@@ -11,6 +11,7 @@ class TermsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.02),
         child: Text(

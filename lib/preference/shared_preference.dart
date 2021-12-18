@@ -3,6 +3,8 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum PreferenceKey {
+  //初回起動かどうかのフラグ（同意画面の提示）
+  isInitial,
   //ログイン保持のためのフラグ
   isLogin,
   //最後にどちらのイラストを使ったかの記録

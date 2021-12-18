@@ -16,10 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$LoginStateTearOff {
   const _$LoginStateTearOff();
 
-  _LoginState call({bool duringLogin = false, bool isLogin = false}) {
+  _LoginState call(
+      {bool duringLogin = false,
+      bool isLogin = false,
+      bool isFirstLaunch = false}) {
     return _LoginState(
       duringLogin: duringLogin,
       isLogin: isLogin,
+      isFirstLaunch: isFirstLaunch,
     );
   }
 }
@@ -31,6 +35,7 @@ const $LoginState = _$LoginStateTearOff();
 mixin _$LoginState {
   bool get duringLogin => throw _privateConstructorUsedError;
   bool get isLogin => throw _privateConstructorUsedError;
+  bool get isFirstLaunch => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginStateCopyWith<LoginState> get copyWith =>
@@ -42,7 +47,7 @@ abstract class $LoginStateCopyWith<$Res> {
   factory $LoginStateCopyWith(
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res>;
-  $Res call({bool duringLogin, bool isLogin});
+  $Res call({bool duringLogin, bool isLogin, bool isFirstLaunch});
 }
 
 /// @nodoc
@@ -57,6 +62,7 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
   $Res call({
     Object? duringLogin = freezed,
     Object? isLogin = freezed,
+    Object? isFirstLaunch = freezed,
   }) {
     return _then(_value.copyWith(
       duringLogin: duringLogin == freezed
@@ -66,6 +72,10 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
       isLogin: isLogin == freezed
           ? _value.isLogin
           : isLogin // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFirstLaunch: isFirstLaunch == freezed
+          ? _value.isFirstLaunch
+          : isFirstLaunch // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -77,7 +87,7 @@ abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
           _LoginState value, $Res Function(_LoginState) then) =
       __$LoginStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool duringLogin, bool isLogin});
+  $Res call({bool duringLogin, bool isLogin, bool isFirstLaunch});
 }
 
 /// @nodoc
@@ -94,6 +104,7 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
   $Res call({
     Object? duringLogin = freezed,
     Object? isLogin = freezed,
+    Object? isFirstLaunch = freezed,
   }) {
     return _then(_LoginState(
       duringLogin: duringLogin == freezed
@@ -104,6 +115,10 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
           ? _value.isLogin
           : isLogin // ignore: cast_nullable_to_non_nullable
               as bool,
+      isFirstLaunch: isFirstLaunch == freezed
+          ? _value.isFirstLaunch
+          : isFirstLaunch // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -111,7 +126,10 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoginState implements _LoginState {
-  const _$_LoginState({this.duringLogin = false, this.isLogin = false});
+  const _$_LoginState(
+      {this.duringLogin = false,
+      this.isLogin = false,
+      this.isFirstLaunch = false});
 
   @JsonKey(defaultValue: false)
   @override
@@ -119,10 +137,13 @@ class _$_LoginState implements _LoginState {
   @JsonKey(defaultValue: false)
   @override
   final bool isLogin;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isFirstLaunch;
 
   @override
   String toString() {
-    return 'LoginState(duringLogin: $duringLogin, isLogin: $isLogin)';
+    return 'LoginState(duringLogin: $duringLogin, isLogin: $isLogin, isFirstLaunch: $isFirstLaunch)';
   }
 
   @override
@@ -133,14 +154,19 @@ class _$_LoginState implements _LoginState {
                 const DeepCollectionEquality()
                     .equals(other.duringLogin, duringLogin)) &&
             (identical(other.isLogin, isLogin) ||
-                const DeepCollectionEquality().equals(other.isLogin, isLogin)));
+                const DeepCollectionEquality()
+                    .equals(other.isLogin, isLogin)) &&
+            (identical(other.isFirstLaunch, isFirstLaunch) ||
+                const DeepCollectionEquality()
+                    .equals(other.isFirstLaunch, isFirstLaunch)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(duringLogin) ^
-      const DeepCollectionEquality().hash(isLogin);
+      const DeepCollectionEquality().hash(isLogin) ^
+      const DeepCollectionEquality().hash(isFirstLaunch);
 
   @JsonKey(ignore: true)
   @override
@@ -149,12 +175,15 @@ class _$_LoginState implements _LoginState {
 }
 
 abstract class _LoginState implements LoginState {
-  const factory _LoginState({bool duringLogin, bool isLogin}) = _$_LoginState;
+  const factory _LoginState(
+      {bool duringLogin, bool isLogin, bool isFirstLaunch}) = _$_LoginState;
 
   @override
   bool get duringLogin => throw _privateConstructorUsedError;
   @override
   bool get isLogin => throw _privateConstructorUsedError;
+  @override
+  bool get isFirstLaunch => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LoginStateCopyWith<_LoginState> get copyWith =>
