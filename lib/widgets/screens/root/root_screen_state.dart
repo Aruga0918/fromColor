@@ -1,8 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:from_color/riverpods/download_bottoms_notifier.dart';
+import 'package:from_color/riverpods/download_outer_notifier.dart';
+import 'package:from_color/riverpods/download_shoes_notifier.dart';
+import 'package:from_color/riverpods/download_tops_notifier.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'root_screen_state.freezed.dart';
 //flutter pub run build_runner build --delete-conflicting-outputs
@@ -23,6 +29,13 @@ class RootScreenController extends StateNotifier<RootScreenState> with LocatorMi
   @override
   void initstate() async{
     super.initState();
+
+    if (FirebaseAuth.instance.currentUser != null) {
+      read<DownloadOuterController>().initState();
+      read<DownloadTopsController>().initState();
+      read<DownloadBottomsController>().initState();
+      read<DownloadShoesController>().initState();
+    }
 
   }
 

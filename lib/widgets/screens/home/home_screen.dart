@@ -9,6 +9,7 @@ import 'package:from_color/riverpods/palette_download_shoes_notifier.dart';
 import 'package:from_color/riverpods/palette_download_tops_notifier.dart';
 import 'package:from_color/widgets/screens/home/components/color_display_bar.dart';
 import 'package:from_color/widgets/screens/home/components/figure_woman.dart';
+import 'package:from_color/widgets/screens/home/components/first_launch_view.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,8 +18,11 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final SelectedColors selectedColor = watch(colorProvider).selectedColors;
     final bool isLogin = watch(loginProvider).isLogin;
+    final bool isFirstLaunch = watch(loginProvider).isFirstLaunch;
 
-    return Scaffold(
+    return isFirstLaunch
+    ? FirstLaunchView()
+    : Scaffold(
       appBar: AppBar(
         title: Text(
             "Palette",
@@ -73,7 +77,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 ColorDisplayBar(
                   selectedColor: selectedColor.shoesColor,
-                  clothType: "靴",
+                  clothType: "シューズ",
                   provider: paletteDownloadShoesProvider,
                   onTap: () => context.read(colorProvider.notifier).showShoesColorPicker(context),
                   setColorFunc: context.read(colorProvider.notifier).setShoesColor,

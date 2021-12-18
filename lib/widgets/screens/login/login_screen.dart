@@ -39,76 +39,71 @@ class LoginScreen extends ConsumerWidget {
               ),
               shadowColor: Colors.transparent,
             ),
+            backgroundColor: Colors.white,
             body: Center(
-              child: Container(
-                color: Colors.white,
-                width: double.maxFinite,
-                child: state.duringLogin
-                    ? Container(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.width * 0.4,
-                          child: LoadingIndicator(
-                            indicatorType: Indicator.ballSpinFadeLoader,
-                            colors: _kDefaultRainbowColors,
-                            strokeWidth: 3,
-                          ),
-                        )
-                      )
-                    : Column(
-                        children: [
-                          SizedBox(height: MediaQuery.of(context).size.width * 0.3),
-                          Image(
-                            image: Assets.icon,
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            height: MediaQuery.of(context).size.width * 0.6,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                                "Welcome!",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontFamily: "Roboto",
-                                fontWeight: FontWeight.bold
-                              ),
+              child: state.duringLogin
+                  ? SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    height: MediaQuery.of(context).size.width * 0.3,
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.ballSpinFadeLoader,
+                      colors: _kDefaultRainbowColors,
+                      strokeWidth: 3,
+                    ),
+                  )
+                  : Column(
+                      children: [
+                        SizedBox(height: MediaQuery.of(context).size.width * 0.3),
+                        Image(
+                          image: Assets.icon,
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          height: MediaQuery.of(context).size.width * 0.6,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              "Welcome!",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontFamily: "Roboto",
+                              fontWeight: FontWeight.bold
                             ),
                           ),
-                          SignInButton(
-                            Buttons.Google,
-                            text: "Googleでログイン",
-                            onPressed: () async {
-                              try {
-                                await context.read(loginProvider.notifier).googleSignin();
-                                context.read(downloadOuterProvider.notifier).initState();
-                                context.read(downloadTopsProvider.notifier).initState();
-                                context.read(downloadBottomsProvider.notifier).initState();
-                                context.read(downloadShoesProvider.notifier).initState();
-                              } catch (e) {
-                                print(e.toString());
-                                showDialog(
-                                  context: context,
-                                  builder: (alertContext) {
-                                    return AlertDialog(
-                                      title: const Text('ログインに失敗しました'),
-                                      actions: <Widget>[
-                                        SimpleDialogOption(
-                                          child: const Text('閉じる'),
-                                          onPressed: () {
-                                            Navigator.of(alertContext).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                              },
-                          ),
-                        Spacer(),
-                      ],
-                    )
-                )
+                        ),
+                        SignInButton(
+                          Buttons.Google,
+                          text: "Googleでログイン",
+                          onPressed: () async {
+                            try {
+                              await context.read(loginProvider.notifier).googleSignin();
+                              context.read(downloadOuterProvider.notifier).initState();
+                              context.read(downloadTopsProvider.notifier).initState();
+                              context.read(downloadBottomsProvider.notifier).initState();
+                              context.read(downloadShoesProvider.notifier).initState();
+                            } catch (e) {
+                              print(e.toString());
+                              showDialog(
+                                context: context,
+                                builder: (alertContext) {
+                                  return AlertDialog(
+                                    title: const Text('ログインに失敗しました'),
+                                    actions: <Widget>[
+                                      SimpleDialogOption(
+                                        child: const Text('閉じる'),
+                                        onPressed: () {
+                                          Navigator.of(alertContext).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                            },
+                        ),
+                      Spacer(),
+                    ],
+                  )
               )
     );
   }

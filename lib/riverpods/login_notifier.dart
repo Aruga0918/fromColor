@@ -11,7 +11,8 @@ part 'login_notifier.freezed.dart';
 class LoginState with _$LoginState {
   const factory LoginState({
     @Default(false) bool duringLogin,
-    @Default(false) bool isLogin
+    @Default(false) bool isLogin,
+    @Default(false) bool isFirstLaunch
 }) = _LoginState;
 }
 
@@ -22,6 +23,13 @@ class LoginController extends StateNotifier<LoginState> with LocatorMixin{
 
   Future<void> _initState() async{
     super.initState();
+    final bool? isFirstLaunch = await Preference().getBool(PreferenceKey.isInitial);
+    if (isFirstLaunch == null) {
+      Preference().setBool(PreferenceKey.isLogin, false);
+      state = state.copyWith(isFirstLaunch: true);
+    } else {
+      state = state.copyWith(isLogin: isFirstLaunch);
+    }
     final bool? isSet = await Preference().getBool(PreferenceKey.isLogin);
     if (isSet == null) {
       Preference().setBool(PreferenceKey.isLogin, false);
@@ -36,6 +44,7 @@ class LoginController extends StateNotifier<LoginState> with LocatorMixin{
       state = state.copyWith(duringLogin: true);
       await fl.googleSignin();
       state = state.copyWith(isLogin: true, duringLogin: false);
+      Preference().setBool(PreferenceKey.isLogin, true);
     } catch(e) {
       state = state.copyWith(duringLogin: false);
       print(e);
@@ -44,6 +53,10 @@ class LoginController extends StateNotifier<LoginState> with LocatorMixin{
 
   void signOut() {
     state = state.copyWith(isLogin: false);
+  }
+
+  void startAndClose1stLaunchView() {
+    state = state.copyWith(isFirstLaunch: false);
   }
   
 }

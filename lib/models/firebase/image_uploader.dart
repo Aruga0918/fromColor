@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:from_color/models/entities/download_data.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io' as io;
 
@@ -122,7 +123,7 @@ class ImageUploader {
 
   //画像のファイルパスを保存
   //最後に、上記のローカルの画像パスとstorageに保存したパスをfirestoreに（String型で）保存します。
-  static Future<void> addFilePath({
+  static Future<String> addFilePath({
     required String userId,
     required String category,
     required String subCategory,
@@ -146,5 +147,43 @@ class ImageUploader {
         },
         SetOptions(merge: true)
     );
+    return 'closet/$userId/$category/$fileName';
+  }
+
+  static Future<void> removeData({required DownloadData data}) async {
+    final filePath = data.fileName;
+    final url = data.remoteImagePath;
+    if (filePath != null) {
+      await _removeStore(filePath);
+    } else {
+      print("Not found file path");
+    }
+    if (url != null) {
+      await _removeStorage(url);
+    } else {
+      print("Not Found file url");
+    }
+
+  }
+
+  static Future<void> _removeStore(String filePath)async {
+      DocumentReference storePath = FirebaseFirestore.instance.doc(filePath);
+      try {
+        await storePath.delete();
+      } catch(e) {
+       print(e);
+       print("Failed to remove file");
+       return;
+      }
+    }
+
+  static Future<void> _removeStorage(String url) async {
+    try {
+      final storage = FirebaseStorage.instance;
+      Reference ref= storage.refFromURL(url);
+      await ref.delete();
+    } catch (e) {
+      print(e);
+    }
   }
 }

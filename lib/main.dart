@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/riverpods/color_notifier.dart';
 import 'package:from_color/widgets/screens/root/root_screen.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 
 void main() async{
@@ -20,7 +19,7 @@ void main() async{
     systemNavigationBarColor: Colors.black,
   ));
   //広告の初期化
-  MobileAds.instance.initialize();
+  // MobileAds.instance.initialize();
   runApp(
       ProviderScope(
           child: MyApp()
