@@ -97,6 +97,14 @@ Future<Map<String, List<DownloadData>>> getCategoryItems({required String userId
   return categoryItems;
 }
 
+Future<void> deleteStorage({required String url, required BuildContext context}) async{
+  try {
+    await FirebaseStorage.instance.refFromURL(url).delete();
+  } catch(e) {
+    showAlertDialog(context: context);
+  }
+}
+
 ////////////////// Common methods //////////////////
 
 Future<bool> checkIfDocExists(
@@ -128,3 +136,4 @@ void showAlertDialog({required BuildContext context}) {
     },
   );
 }
+
