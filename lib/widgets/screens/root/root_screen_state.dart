@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:from_color/preference/shared_preference.dart';
 import 'package:from_color/riverpods/download_bottoms_notifier.dart';
 import 'package:from_color/riverpods/download_outer_notifier.dart';
 import 'package:from_color/riverpods/download_shoes_notifier.dart';
@@ -14,7 +15,9 @@ part 'root_screen_state.freezed.dart';
 //flutter pub run build_runner build --delete-conflicting-outputs
 @freezed
 class RootScreenState with _$RootScreenState {
-  const factory RootScreenState() = _RootScreenState;
+  const factory RootScreenState({
+    @Default(false) bool isFirstLaunch
+}) = _RootScreenState;
 }
 
 class RootScreenController extends StateNotifier<RootScreenState> with LocatorMixin {
@@ -35,6 +38,14 @@ class RootScreenController extends StateNotifier<RootScreenState> with LocatorMi
       read<DownloadTopsController>().initState();
       read<DownloadBottomsController>().initState();
       read<DownloadShoesController>().initState();
+    }
+
+    final bool? isFirstLaunch = await Preference().getBool(PreferenceKey.isInitial);
+    if (isFirstLaunch == null) {
+      Preference().setBool(PreferenceKey.isLogin, false);
+      state = state.copyWith(isFirstLaunch: true);
+    } else {
+      state = state.copyWith(isFirstLaunch: isFirstLaunch);
     }
 
   }

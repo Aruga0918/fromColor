@@ -23,13 +23,15 @@ class LoginController extends StateNotifier<LoginState> with LocatorMixin{
 
   Future<void> _initState() async{
     super.initState();
-    final bool? isFirstLaunch = await Preference().getBool(PreferenceKey.isInitial);
-    if (isFirstLaunch == null) {
-      Preference().setBool(PreferenceKey.isLogin, false);
-      state = state.copyWith(isFirstLaunch: true);
-    } else {
-      state = state.copyWith(isLogin: isFirstLaunch);
+    Preference().getBool(PreferenceKey.isInitial).then((isFirstLaunch) => (){
+      if (isFirstLaunch == null) {
+        Preference().setBool(PreferenceKey.isLogin, false);
+        state = state.copyWith(isFirstLaunch: true);
+      } else {
+        state = state.copyWith(isFirstLaunch: isFirstLaunch);
+      }
     }
+    );
     final bool? isSet = await Preference().getBool(PreferenceKey.isLogin);
     if (isSet == null) {
       Preference().setBool(PreferenceKey.isLogin, false);
