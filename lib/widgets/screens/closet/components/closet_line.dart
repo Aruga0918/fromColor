@@ -46,26 +46,30 @@ class ClosetLine extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(clothCategory),
-                  InkWell(
-                    key: Key(clothCategory),
-                    onTap: onTap,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "add item",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.black45
-                          ),
+                  !isLogin
+                      ? SizedBox(
+                          width: 1,
+                        )
+                      : InkWell(
+                        key: Key(clothCategory),
+                        onTap: onTap,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "add item",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black45
+                              ),
+                            ),
+                            Icon(
+                              Icons.add,
+                              color: Colors.black45,
+                            ),
+                          ],
                         ),
-                        Icon(
-                          Icons.add,
-                          color: Colors.black45,
-                        ),
-                      ],
-                    ),
-                  )
+                      )
                 ],
               ),
             ),

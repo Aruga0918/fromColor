@@ -16,7 +16,6 @@ class FirstLaunchView extends StatefulWidget {
 }
 
 class _FirstLaunchState extends State<FirstLaunchView> {
-
   final controller = PageController();
   final _currentPageNotifier = ValueNotifier<int>(0);
 
