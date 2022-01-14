@@ -49,7 +49,7 @@ class ImageUploader {
       print(imgSrc);
     }
 
-    final PickedFile? pickedFile = await picker.getImage(source: imgSrc, imageQuality: 10);
+    final PickedFile? pickedFile = await picker.getImage(source: imgSrc, imageQuality: 5);
     print(pickedFile);
 
     if (pickedFile == null){
