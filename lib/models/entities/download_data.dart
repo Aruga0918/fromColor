@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+//TODO : storePathを追加して削除に対応するようにする
 class DownloadData {
   const DownloadData({
     required this.localImagePath,
@@ -22,7 +23,8 @@ class DownloadData {
         remoteImagePath: data["remoteImagePath"],
         itemColorValue: data["itemColorValue"],
       fileName: data["fileName"] ?? null,
-      createdAt: data["fileName"].substring(data["fileName"].lastIndexOf("/")+1) ?? null
+      createdAt: data["fileName"].substring(data["fileName"].lastIndexOf("/")+1) ?? null,
+      //TODO : storePath: data["storePath"]
     );
   }
 

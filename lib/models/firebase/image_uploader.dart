@@ -143,7 +143,8 @@ class ImageUploader {
           'localImagePath': localPath,
           'remoteImagePath': remotePath,
           'itemColorValue': colorValue,
-          'fileName': 'closet/$userId/$category/$fileName'
+          'fileName': 'closet/$userId/$category/$fileName',
+          'storePath': 'usersCloset/$userId/$category/$subCategory/$colorCategory/$fileName'
         },
         SetOptions(merge: true)
     );
