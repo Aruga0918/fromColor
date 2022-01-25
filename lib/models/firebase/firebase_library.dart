@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:from_color/models/colorList.dart';
 import 'package:from_color/models/entities/download_data.dart';
 import 'package:from_color/models/firebase/image_uploader.dart';
+import 'package:from_color/preference/shared_preference.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 ////////////////// Collection references //////////////////
@@ -74,7 +75,7 @@ Future<Map<String, String>?> uploadImage({
                 localPath: localImagePath,
                 remotePath: remoteImagePath,
                 colorValue: colorValue,
-                fileName: datetime
+                fileName: datetime,
             );
             return {"remoteImagePath": remoteImagePath, "filePath": filePath};
           });
