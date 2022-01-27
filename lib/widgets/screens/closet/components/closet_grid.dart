@@ -55,7 +55,20 @@ class ClosetGrid extends StatelessWidget {
                     );
                   } catch(e) {
                     print(e);
-                    return Image(image: Assets.images.imageFailed);
+                    if (fileName == null) {
+                      return Image(image: Assets.images.imageFailed);
+                    } else {
+                      ul.getImgStringDataFromLocalStorage(localPath: localKey, index: fileName!).then(
+                              (value) {
+                            if (value == "noData") {
+                              return Image(image: Assets.images.imageFailed);
+                            } else {
+                              return bc.base64ToImgConverter(base64: value);
+                            }
+                          }
+                      );
+                      return Image(image: Assets.images.imageFailed);
+                    }
                   }
                 } else if (snapshot.data == "remote") {
                   try {
