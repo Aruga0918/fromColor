@@ -53,7 +53,8 @@ class HomeScreen extends ConsumerWidget {
               children: [
                 ColorDisplayBar(
                   selectedColor: selectedColor.outerColor,
-                  clothType: "アウター",
+                  clothCategoryJP: "アウター",
+                  clothCategoryEN: "Outer",
                   provider: paletteDownloadOuterProvider,
                   onTap: () => context.read(colorProvider.notifier).showOuterColorPicker(context),
                   setColorFunc: context.read(colorProvider.notifier).setOuterColor,
@@ -61,7 +62,8 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 ColorDisplayBar(
                   selectedColor: selectedColor.innerColor,
-                  clothType: "トップス",
+                  clothCategoryJP: "トップス",
+                  clothCategoryEN: "Tops",
                   provider: paletteDownloadTopsProvider,
                   onTap: () => context.read(colorProvider.notifier).showInnerColorPicker(context),
                   setColorFunc: context.read(colorProvider.notifier).setInnerColor,
@@ -69,7 +71,8 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 ColorDisplayBar(
                   selectedColor: selectedColor.bottomsColor,
-                  clothType: "ボトムス",
+                  clothCategoryJP: "ボトムス",
+                  clothCategoryEN: "Bottoms",
                   provider: paletteDownloadBottomsProvider,
                   onTap: () => context.read(colorProvider.notifier).showBottomsColorPicker(context),
                   setColorFunc: context.read(colorProvider.notifier).setBottomsColor,
@@ -77,7 +80,8 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 ColorDisplayBar(
                   selectedColor: selectedColor.shoesColor,
-                  clothType: "シューズ",
+                  clothCategoryJP: "シューズ",
+                  clothCategoryEN: "Shoes",
                   provider: paletteDownloadShoesProvider,
                   onTap: () => context.read(colorProvider.notifier).showShoesColorPicker(context),
                   setColorFunc: context.read(colorProvider.notifier).setShoesColor,

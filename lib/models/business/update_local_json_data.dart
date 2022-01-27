@@ -16,3 +16,16 @@ Future<void> updateMapLocalStorage({required String data, required String index,
   currentMap[index] = data;
   await preference.setString(key: localPath, value: _jsonEncoder(map: currentMap));
 }
+
+Future<String> getImgStringDataFromLocalStorage({required PreferenceKey localPath, required String index}) async{
+  final preference = Preference();
+  final currentMap = _jsonDecoder(json: await preference.getString(localPath) ?? "{}");
+  print(currentMap);
+  if (currentMap[index] == null) {
+    print("There is not such image");
+    return "noData";
+  } else {
+    return currentMap[index];
+  }
+
+}

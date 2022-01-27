@@ -18,7 +18,7 @@ Uint8List _base64Byte(String base64) {
   return base64Decode(base64);
 }
 
-Future<Image> base64ToImgConverter({required String base64}) async{
+Image base64ToImgConverter({required String base64}) {
   final data = _base64Byte(base64);
   return Image.memory(data);
 }

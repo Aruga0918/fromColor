@@ -10,14 +10,16 @@ class ColorDisplayBar extends StatelessWidget {
   const ColorDisplayBar({
     Key? key,
     required this.selectedColor,
-    required this.clothType,
+    required this.clothCategoryJP,
+    required this.clothCategoryEN,
     required this.provider,
     required this.onTap,
     required this.setColorFunc,
     required this.isLogin
   }) : super(key: key);
   final Color selectedColor;
-  final String clothType;
+  final String clothCategoryJP;
+  final String clothCategoryEN;
   final StateNotifierProvider provider;
   final Function() onTap;
   final Function setColorFunc;
@@ -41,7 +43,7 @@ class ColorDisplayBar extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                    clothType,
+                    clothCategoryJP,
                   style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.0173),
                 ),
                 Spacer(),
@@ -74,7 +76,7 @@ class ColorDisplayBar extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.1,
             alignment: Alignment.center,
             child: isLogin
-              ? ItemListView(provider: provider, setColorFunc: setColorFunc,)
+              ? ItemListView(provider: provider, setColorFunc: setColorFunc, clothCategory: clothCategoryEN,)
               : Text(
                 "ログインしていません",
                 style: TextStyle(

@@ -5,6 +5,7 @@ import 'package:from_color/riverpods/login_notifier.dart';
 import 'package:from_color/widgets/screens/closet/components/closet_grid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/models/business/map2list_download_data.dart' as ml;
+import 'package:from_color/models/business/classify_category_for_PrefKey.dart' as cfp;
 class ClosetLine extends ConsumerWidget {
   const ClosetLine({
     Key? key,
@@ -90,7 +91,9 @@ class ClosetLine extends ConsumerWidget {
                   return ClosetGrid(
                       localImgPath: userItems[index].localImagePath,
                       remoteImgPath: userItems[index].remoteImagePath,
-                      colorCode: userItems[index].itemColorValue
+                      colorCode: userItems[index].itemColorValue,
+                      fileName: userItems[index].fileName,
+                      localKey: cfp.Classifier(clothCategory),
                   );
                 }
               )

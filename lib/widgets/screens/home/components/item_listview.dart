@@ -3,15 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/models/entities/download_data.dart';
 import 'package:from_color/riverpods/color_notifier.dart';
 import 'package:from_color/widgets/screens/closet/components/closet_grid.dart';
+import 'package:from_color/models/business/classify_category_for_PrefKey.dart' as cfp;
 
 class ItemListView extends ConsumerWidget {
   const ItemListView({
     Key? key,
     required this.provider,
-    required this.setColorFunc
+    required this.setColorFunc,
+    required this.clothCategory
   }) : super(key: key);
   final StateNotifierProvider provider;
   final Function setColorFunc;
+  final String clothCategory;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -33,7 +36,9 @@ class ItemListView extends ConsumerWidget {
               child: ClosetGrid(
                   localImgPath: colorItemList[index].localImagePath,
                   remoteImgPath: colorItemList[index].remoteImagePath,
-                  colorCode: colorItemList[index].itemColorValue
+                  colorCode: colorItemList[index].itemColorValue,
+                  fileName: colorItemList[index].fileName,
+                  localKey: cfp.Classifier(clothCategory),
               ),
             );
           },
