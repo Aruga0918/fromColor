@@ -8,23 +8,24 @@ import 'package:from_color/preference/shared_preference.dart';
 // }
 
 PreferenceKey Classifier(String category) {
-  late PreferenceKey key;
   switch (category){
     case "Outer":
-      key = PreferenceKey.OuterCloset;
-      break;
+      final key = PreferenceKey.OuterCloset;
+      return key;
 
     case "Tops":
-      key = PreferenceKey.TopsCloset;
-      break;
+      final key = PreferenceKey.TopsCloset;
+      return key;
 
     case "Bottoms":
-      key = PreferenceKey.BottomsCloset;
-      break;
+      final key = PreferenceKey.BottomsCloset;
+      return key;
 
     case "Shoes":
-      key = PreferenceKey.ShoesCloset;
-      break;
+      final key = PreferenceKey.ShoesCloset;
+      return key;
+
+    default:
+      return PreferenceKey.ShoesCloset;
   }
-  return key;
 }

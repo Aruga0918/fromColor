@@ -134,6 +134,7 @@ class ClosetAddDialog extends ConsumerWidget {
                             colorCategory: colorCategory
                         );
                         Navigator.pop(context);
+                        print("reloaded!");
                         break;
                       case 'Tops':
                         context.read(downloadTopsProvider.notifier).reload2(
@@ -141,6 +142,7 @@ class ClosetAddDialog extends ConsumerWidget {
                             colorCategory: colorCategory
                         );
                         Navigator.pop(context);
+                        print("reloaded!");
                         break;
                       case 'Bottoms':
                         context.read(downloadBottomsProvider.notifier).reload2(
@@ -148,6 +150,7 @@ class ClosetAddDialog extends ConsumerWidget {
                             colorCategory: colorCategory
                         );
                         Navigator.pop(context);
+                        print("reloaded!");
                         break;
                       case 'Shoes':
                         context.read(downloadShoesProvider.notifier).reload2(
@@ -155,8 +158,10 @@ class ClosetAddDialog extends ConsumerWidget {
                             colorCategory: colorCategory
                         );
                         Navigator.pop(context);
+                        print("reloaded!");
                         break;
                       default:
+                        print("No such a category. So Could'nt reload.");
                         break;
                     }
                   }

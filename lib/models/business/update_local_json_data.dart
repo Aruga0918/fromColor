@@ -12,14 +12,22 @@ Map<dynamic, dynamic> _jsonDecoder({required String json}) {
 
 Future<void> updateMapLocalStorage({required String data, required String index, required PreferenceKey localPath}) async{
   final preference = Preference();
-  final currentMap = _jsonDecoder(json: await preference.getString(localPath) ?? "{}");
-  currentMap[index] = data;
-  await preference.setString(key: localPath, value: _jsonEncoder(map: currentMap));
+  final json = await preference.getString(localPath);
+  if (json.isEmpty) {
+    final currentMap = {};
+    currentMap[index] = data;
+    await preference.setString(key: localPath, value: _jsonEncoder(map: currentMap));
+  } else {
+    final currentMap = _jsonDecoder(json: json);
+    currentMap[index] = data;
+    await preference.setString(key: localPath, value: _jsonEncoder(map: currentMap));
+  }
 }
 
 Future<String> getImgStringDataFromLocalStorage({required PreferenceKey localPath, required String index}) async{
   final preference = Preference();
-  final currentMap = _jsonDecoder(json: await preference.getString(localPath) ?? "{}");
+  final json = await preference.getString(localPath);
+  final currentMap = _jsonDecoder(json: json);
   print(currentMap);
   if (currentMap[index] == null) {
     print("There is not such image");
