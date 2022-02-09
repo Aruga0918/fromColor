@@ -119,10 +119,11 @@ class ClosetAddDialog extends ConsumerWidget {
                       colorValue: selectedColor.value.toRadixString(16),
                       localImagePath: selectedImage,
                       context: context);
-                  if (uploadData!["remotePath"] != "failed" && uploadData["remotePath"] != null) {
+                  print(uploadData);
+                  if (uploadData["remoteImagePath"] != "failed" && uploadData["remoteImagePath"] != null) {
                     final newItem = DownloadData(
                         localImagePath: selectedImage,
-                        remoteImagePath: uploadData["remotePath"]!,
+                        remoteImagePath: uploadData["remoteImagePath"]!,
                         itemColorValue: selectedColor.value.toRadixString(16),
                         fileName: uploadData["filePath"]!
                     );
@@ -133,7 +134,6 @@ class ClosetAddDialog extends ConsumerWidget {
                             newItem: newItem,
                             colorCategory: colorCategory
                         );
-                        Navigator.pop(context);
                         print("reloaded!");
                         break;
                       case 'Tops':
@@ -141,7 +141,6 @@ class ClosetAddDialog extends ConsumerWidget {
                             newItem: newItem,
                             colorCategory: colorCategory
                         );
-                        Navigator.pop(context);
                         print("reloaded!");
                         break;
                       case 'Bottoms':
@@ -149,7 +148,6 @@ class ClosetAddDialog extends ConsumerWidget {
                             newItem: newItem,
                             colorCategory: colorCategory
                         );
-                        Navigator.pop(context);
                         print("reloaded!");
                         break;
                       case 'Shoes':
@@ -157,7 +155,6 @@ class ClosetAddDialog extends ConsumerWidget {
                             newItem: newItem,
                             colorCategory: colorCategory
                         );
-                        Navigator.pop(context);
                         print("reloaded!");
                         break;
                       default:

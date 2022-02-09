@@ -50,7 +50,7 @@ Future signout() async {
 
 ////////////////// Storage methods //////////////////
 
-Future<Map<String, String>?> uploadImage({
+Future<Map<String, String>> uploadImage({
   required String userId,
   required String category,
   required String subCategory,
@@ -60,25 +60,22 @@ Future<Map<String, String>?> uploadImage({
   required BuildContext context
 }) async {
   final datetime = DateTime.now().toString();
-  ImageUploader.uploadFile(sourcePath: localImagePath, userId: userId, category: category, fileName: datetime).then(
-          (remoteImagePath) async{
-            if (remoteImagePath == "error") {
-              print("no remotePath");
-              showAlertDialog(context: context);
-              return "failed";
-            }
-            final filePath = await ImageUploader.addFilePath(
-                userId: userId,
-                category: category,
-                subCategory: subCategory,
-                colorCategory: colorCategory,
-                localPath: localImagePath,
-                remotePath: remoteImagePath,
-                colorValue: colorValue,
-                fileName: datetime,
-            );
-            return {"remoteImagePath": remoteImagePath, "filePath": filePath};
-          });
+  final remoteImagePath = await ImageUploader.uploadFile(sourcePath: localImagePath, userId: userId, category: category, fileName: datetime);
+  if (remoteImagePath == "error") {
+    print("no remotePath");
+    showAlertDialog(context: context);
+  }
+  final filePath = await ImageUploader.addFilePath(
+    userId: userId,
+    category: category,
+    subCategory: subCategory,
+    colorCategory: colorCategory,
+    localPath: localImagePath,
+    remotePath: remoteImagePath,
+    colorValue: colorValue,
+    fileName: datetime,
+  );
+  return {"remoteImagePath": remoteImagePath, "filePath": filePath};
 }
 
 Future<Map<String, List<DownloadData>>> getCategoryItems({required String userId, required String category}) async {
