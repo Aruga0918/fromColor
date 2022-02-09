@@ -2,8 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:from_color/models/entities/download_data.dart';
+import 'package:from_color/preference/shared_preference.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io' as io;
+import 'package:from_color/models/business/base64_img_converter.dart' as bc;
+import 'package:from_color/models/business/classify_category_for_PrefKey.dart' as cl;
+import 'package:from_color/models/business/update_local_json_data.dart' as upLocal;
 
 class ImageUploader {
 
@@ -68,6 +72,9 @@ class ImageUploader {
     Reference ref = storage.ref().child("closet/$userId/$category/$fileName");  //保存するフォルダ
 
     io.File file = io.File(sourcePath);
+
+    await saveToLocalStorage(file: file, category: category, index: fileName);
+
     UploadTask task = ref.putFile(file);
     Future<String> getUrl() async {
       try {
@@ -144,11 +151,18 @@ class ImageUploader {
           'remoteImagePath': remotePath,
           'itemColorValue': colorValue,
           'fileName': 'closet/$userId/$category/$fileName',
-          'storePath': 'usersCloset/$userId/$category/$subCategory/$colorCategory/$fileName'
+          'storePath': 'usersCloset/$userId/$category/$subCategory/$colorCategory/$fileName',
+          'localClosetIndex': fileName
         },
         SetOptions(merge: true)
     );
     return 'closet/$userId/$category/$fileName';
+  }
+
+  static Future<void> saveToLocalStorage({required io.File file, required String category, required String index}) async{
+    final String base64String = await bc.ImgToBase64Converter(imgData: file);
+    final PreferenceKey key = cl.Classifier(category);
+    await upLocal.updateMapLocalStorage(data: base64String, index: index, localPath: key);
   }
 
   static Future<void> removeData({required DownloadData data}) async {

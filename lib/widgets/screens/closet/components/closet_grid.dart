@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:from_color/gen/assets.gen.dart';
 import 'package:from_color/models/firebase/image_downloader.dart';
 import 'dart:io' as io;
+import 'package:from_color/models/business/update_local_json_data.dart' as ul;
+import 'package:from_color/models/business/base64_img_converter.dart' as bc;
+import 'package:from_color/preference/shared_preference.dart';
 
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -11,11 +14,15 @@ class ClosetGrid extends StatelessWidget {
     Key? key,
     required this.localImgPath,
     required this.remoteImgPath,
-    required this.colorCode
+    required this.colorCode,
+    required this.fileName,
+    required this.localKey
   }) : super(key: key);
   final String localImgPath;
   final String remoteImgPath;
   final String colorCode;
+  final String? fileName;
+  final PreferenceKey localKey;
 
   static const List<Color> _kDefaultRainbowColors = const [
     Colors.red,
@@ -48,7 +55,20 @@ class ClosetGrid extends StatelessWidget {
                     );
                   } catch(e) {
                     print(e);
-                    return Image(image: Assets.images.imageFailed);
+                    if (fileName == null) {
+                      return Image(image: Assets.images.imageFailed);
+                    } else {
+                      ul.getImgStringDataFromLocalStorage(localPath: localKey, index: fileName!).then(
+                              (value) {
+                            if (value == "noData") {
+                              return Image(image: Assets.images.imageFailed);
+                            } else {
+                              return bc.base64ToImgConverter(base64: value);
+                            }
+                          }
+                      );
+                      return Image(image: Assets.images.imageFailed);
+                    }
                   }
                 } else if (snapshot.data == "remote") {
                   try {
@@ -56,7 +76,24 @@ class ClosetGrid extends StatelessWidget {
                         remoteImgPath,
                         width: MediaQuery.of(context).size.width * 0.18,
                         height: MediaQuery.of(context).size.height * 0.1,
-                        fit: BoxFit.cover
+                        fit: BoxFit.cover,
+                        errorBuilder:
+                            (BuildContext context, Object exception, StackTrace? stackTrace) {
+                          if (fileName == null) {
+                            return Image(image: Assets.images.imageFailed);
+                          } else {
+                            ul.getImgStringDataFromLocalStorage(localPath: localKey, index: fileName!).then(
+                                    (value) {
+                                      if (value == "noData") {
+                                        return Image(image: Assets.images.imageFailed);
+                                      } else {
+                                        return bc.base64ToImgConverter(base64: value);
+                                      }
+                                    }
+                            );
+                            return Image(image: Assets.images.imageFailed);
+                          }
+                        },
                     );
                   } catch(e) {
                     print(e);

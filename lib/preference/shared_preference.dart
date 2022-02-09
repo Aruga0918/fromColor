@@ -10,7 +10,12 @@ enum PreferenceKey {
   //最後にどちらのイラストを使ったかの記録
   isGirl,
   //広告表示用カウント
-  adCount
+  adCount,
+  //ローカルクローゼット
+  OuterCloset,
+  TopsCloset,
+  BottomsCloset,
+  ShoesCloset
 }
 
 class Preference {
