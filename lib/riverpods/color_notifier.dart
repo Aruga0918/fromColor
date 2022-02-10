@@ -45,7 +45,7 @@ class ColorNotifier extends StateNotifier<ColorState> {
         context: context,
         builder: (alertContext) {
           return AlertDialog(
-            title: const Text('Pick a color!'),
+            title: const Text('アウターの色を選択'),
             content: SingleChildScrollView(
               child: MaterialPicker(
                 pickerColor: outerPicker,
@@ -72,7 +72,7 @@ class ColorNotifier extends StateNotifier<ColorState> {
       context: context,
       builder: (alertContext) {
         return AlertDialog(
-          title: const Text('Pick a color!'),
+          title: const Text('トップスの色を選択'),
           content: SingleChildScrollView(
             child: MaterialPicker(
               pickerColor: innerPicker,
@@ -99,7 +99,7 @@ class ColorNotifier extends StateNotifier<ColorState> {
       context: context,
       builder: (alertContext) {
         return AlertDialog(
-          title: const Text('Pick a color!'),
+          title: const Text('ボトムスの色を選択'),
           content: SingleChildScrollView(
             child: MaterialPicker(
               pickerColor: bottomsPicker,
@@ -126,7 +126,7 @@ class ColorNotifier extends StateNotifier<ColorState> {
       context: context,
       builder: (alertContext) {
         return AlertDialog(
-          title: const Text('Pick a color!'),
+          title: const Text('シューズの色を選択'),
           content: SingleChildScrollView(
             child: MaterialPicker(
               pickerColor: shoesPicker,
