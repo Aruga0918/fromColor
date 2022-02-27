@@ -8,6 +8,7 @@ import 'package:from_color/models/entities/download_data.dart';
 import 'package:from_color/models/firebase/image_uploader.dart';
 import 'package:from_color/preference/shared_preference.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 ////////////////// Collection references //////////////////
 
@@ -36,6 +37,27 @@ Future googleSignin() async {
       addUserInfo(userId: userId, userName: googleUser.displayName);
     }
   }
+}
+
+Future<void> appleLogIn() async {
+  final appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+  );
+
+  try {
+    OAuthProvider oauthProvider = OAuthProvider('apple.com');
+    final credential = oauthProvider.credential(
+      idToken: appleCredential.identityToken,
+      accessToken: appleCredential.authorizationCode,
+    );
+  } catch(e) {
+    print(e);
+  }
+
+
 }
 
 Future addUserInfo({required String userId, required String? userName}) async {

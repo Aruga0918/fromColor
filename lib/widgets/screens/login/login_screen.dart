@@ -11,6 +11,8 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:from_color/widgets/screens/home/components/first_launch_view.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:from_color/gen/assets.gen.dart';
+import 'package:from_color/models/firebase/firebase_library.dart' as fl;
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 
 class LoginScreen extends ConsumerWidget {
@@ -105,6 +107,38 @@ class LoginScreen extends ConsumerWidget {
                               }
                               },
                           ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SignInWithAppleButton(
+                            onPressed: () async{
+                              try{
+                                await fl.appleLogIn();
+                                context.read(downloadOuterProvider.notifier).initState();
+                                context.read(downloadTopsProvider.notifier).initState();
+                                context.read(downloadBottomsProvider.notifier).initState();
+                                context.read(downloadShoesProvider.notifier).initState();
+                              } catch(e) {
+                                print(e.toString());
+                                showDialog(
+                                  context: context,
+                                  builder: (alertContext) {
+                                    return AlertDialog(
+                                      title: const Text('ログインに失敗しました'),
+                                      actions: <Widget>[
+                                        SimpleDialogOption(
+                                          child: const Text('閉じる'),
+                                          onPressed: () {
+                                            Navigator.of(alertContext).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                               }
+                              },
+                          ),
+                        ),
                         Spacer(),
                       ],
                     )
