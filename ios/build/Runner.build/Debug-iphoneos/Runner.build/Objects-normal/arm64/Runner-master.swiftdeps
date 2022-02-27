@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)"
+options: "ab83a88b823ff568f33626bdd8bb0ca24f68a9c1607c2ed16b1dc6d8d8d71acb"
+build_start_time: [1644923734, 667962074]
+build_end_time: [1644923734, 827208042]
+inputs:
+  "/Users/yuta/StudioProjects/from_color/ios/Runner/AppDelegate.swift": !private [1635674179, 979807138]

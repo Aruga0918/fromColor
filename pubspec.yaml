@@ -62,6 +62,8 @@ dependencies:
   webview_flutter: ^2.0.13
   package_info: ^2.0.2
   page_view_indicators: ^2.0.0
+  sign_in_with_apple: ^3.3.0
+  apple_sign_in: ^0.1.0
 
 dev_dependencies:
   build_runner: ^2.1.2
