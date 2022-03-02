@@ -515,6 +515,8 @@ PODS:
   - sign_in_with_apple (0.0.1):
     - Flutter
   - SwiftyGif (5.4.0)
+  - the_apple_sign_in (1.0.0):
+    - Flutter
   - webview_flutter (0.0.1):
     - Flutter
 
@@ -531,6 +533,7 @@ DEPENDENCIES:
   - search_choices (from `.symlinks/plugins/search_choices/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
+  - the_apple_sign_in (from `.symlinks/plugins/the_apple_sign_in/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
@@ -584,6 +587,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences/ios"
   sign_in_with_apple:
     :path: ".symlinks/plugins/sign_in_with_apple/ios"
+  the_apple_sign_in:
+    :path: ".symlinks/plugins/the_apple_sign_in/ios"
   webview_flutter:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
@@ -623,6 +628,7 @@ SPEC CHECKSUMS:
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
   SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
+  the_apple_sign_in: 2e78c83cdb09eba07bb16dcc1f3bc12fcdc8263d
   webview_flutter: 3603125dfd3bcbc9d8d418c3f80aeecf331c068b
 
 PODFILE CHECKSUM: 348dad678b7cce6be8a224f25af1488a984f0e6a

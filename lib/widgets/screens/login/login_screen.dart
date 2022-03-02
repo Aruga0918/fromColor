@@ -112,7 +112,7 @@ class LoginScreen extends ConsumerWidget {
                           child: SignInWithAppleButton(
                             onPressed: () async{
                               try{
-                                await fl.appleLogIn();
+                                await context.read(loginProvider.notifier).appleSignin();
                                 context.read(downloadOuterProvider.notifier).initState();
                                 context.read(downloadTopsProvider.notifier).initState();
                                 context.read(downloadBottomsProvider.notifier).initState();
