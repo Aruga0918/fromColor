@@ -34,7 +34,7 @@ class SettingScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          Text("ようこそ${FirebaseAuth.instance.currentUser!.displayName!}さん"),
+          Text("ようこそ${FirebaseAuth.instance.currentUser!.displayName ?? FirebaseAuth.instance.currentUser!.email}さん"),
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
           Center(
             child: Container(

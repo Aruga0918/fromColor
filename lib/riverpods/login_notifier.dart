@@ -53,6 +53,18 @@ class LoginController extends StateNotifier<LoginState> with LocatorMixin{
     }
   }
 
+  Future<void> appleSignin() async{
+    try {
+      state = state.copyWith(duringLogin: true);
+      await fl.appleLogIn();
+      state = state.copyWith(isLogin: true, duringLogin: false);
+      Preference().setBool(PreferenceKey.isLogin, true);
+    } catch(e) {
+      state = state.copyWith(duringLogin: false);
+      print(e);
+    }
+  }
+
   void signOut() {
     state = state.copyWith(isLogin: false);
   }
