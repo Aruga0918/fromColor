@@ -25,7 +25,7 @@ class LoginController extends StateNotifier<LoginState> with LocatorMixin{
     super.initState();
     final bool? isFirstLaunch = await Preference().getBool(PreferenceKey.isInitial);
     if (isFirstLaunch == null) {
-      Preference().setBool(PreferenceKey.isLogin, false);
+      Preference().setBool(PreferenceKey.isInitial, false);
       state = state.copyWith(isFirstLaunch: true);
       print("Welcome");
     } else {
