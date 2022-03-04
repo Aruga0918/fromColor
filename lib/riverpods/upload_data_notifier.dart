@@ -25,7 +25,7 @@ class UploadDataController extends StateNotifier<UploadDataState> {
       context: context,
       builder: (alertContext) {
         return AlertDialog(
-          title: const Text('Pick a color!'),
+          title: const Text('アイテムの色を選択してください'),
           content: SingleChildScrollView(
             child: MaterialPicker(
               pickerColor: pickedColor,

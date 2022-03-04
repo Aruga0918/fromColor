@@ -47,13 +47,15 @@ class ClosetAddDialog extends ConsumerWidget {
               Text("追加したいアイテムの画像と色を指定してください"),
               Container(
                 alignment: Alignment.center,
-                color: Colors.grey,
+                color: selectedImage.isNotEmpty
+                ? Colors.transparent
+                : Colors.grey,
                 width: MediaQuery.of(context).size.height * 0.3,
                 height: MediaQuery.of(context).size.height * 0.3,
                 child: InkWell(
                   onTap: () => context.read(uploadDataProvider.notifier).getImagePath(context: context),
                   child: selectedImage.isNotEmpty
-                  ? Image.asset(selectedImage)
+                  ? Image.asset(selectedImage, fit: BoxFit.cover,)
                   : Icon(
                       Icons.add_a_photo,
                       color: Colors.white,
@@ -109,60 +111,79 @@ class ClosetAddDialog extends ConsumerWidget {
                       },
                     );
                   }
-                  final colorCategory = await ColorList.getColorCategory(selectedColor);
-                  print(colorCategory);
-                  final uploadData = await fl.uploadImage(
-                      userId: FirebaseAuth.instance.currentUser!.uid,
-                      category: category,
-                      subCategory: "initial",
-                      colorCategory: colorCategory,
-                      colorValue: selectedColor.value.toRadixString(16),
-                      localImagePath: selectedImage,
-                      context: context);
-                  print(uploadData);
-                  if (uploadData["remoteImagePath"] != "failed" && uploadData["remoteImagePath"] != null) {
-                    final newItem = DownloadData(
-                        localImagePath: selectedImage,
-                        remoteImagePath: uploadData["remoteImagePath"]!,
-                        itemColorValue: selectedColor.value.toRadixString(16),
-                        fileName: uploadData["filePath"]!
+                  else if (selectedImage.isEmpty) {
+                    showDialog(
+                      context: context,
+                      builder: (alertContext) {
+                        return AlertDialog(
+                          title: const Text('画像が未選択です。'),
+                          actions: <Widget>[
+                            SimpleDialogOption(
+                              child: const Text('閉じる'),
+                              onPressed: () {
+                                Navigator.of(alertContext).pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
                     );
-                  //NOTE: reload2()をよぶ
-                    switch (category) {
-                      case 'Outer':
-                        context.read(downloadOuterProvider.notifier).reload2(
-                            newItem: newItem,
-                            colorCategory: colorCategory
-                        );
-                        print("reloaded!");
-                        break;
-                      case 'Tops':
-                        context.read(downloadTopsProvider.notifier).reload2(
-                            newItem: newItem,
-                            colorCategory: colorCategory
-                        );
-                        print("reloaded!");
-                        break;
-                      case 'Bottoms':
-                        context.read(downloadBottomsProvider.notifier).reload2(
-                            newItem: newItem,
-                            colorCategory: colorCategory
-                        );
-                        print("reloaded!");
-                        break;
-                      case 'Shoes':
-                        context.read(downloadShoesProvider.notifier).reload2(
-                            newItem: newItem,
-                            colorCategory: colorCategory
-                        );
-                        print("reloaded!");
-                        break;
-                      default:
-                        print("No such a category. So Could'nt reload.");
-                        break;
+                  } else {
+                    final colorCategory = await ColorList.getColorCategory(selectedColor);
+                    print(colorCategory);
+                    final uploadData = await fl.uploadImage(
+                        userId: FirebaseAuth.instance.currentUser!.uid,
+                        category: category,
+                        subCategory: "initial",
+                        colorCategory: colorCategory,
+                        colorValue: selectedColor.value.toRadixString(16),
+                        localImagePath: selectedImage,
+                        context: context);
+                    print(uploadData);
+                    if (uploadData["remoteImagePath"] != "failed" && uploadData["remoteImagePath"] != null) {
+                      final newItem = DownloadData(
+                          localImagePath: selectedImage,
+                          remoteImagePath: uploadData["remoteImagePath"]!,
+                          itemColorValue: selectedColor.value.toRadixString(16),
+                          fileName: uploadData["filePath"]!
+                      );
+                      //NOTE: reload2()をよぶ
+                      switch (category) {
+                        case 'Outer':
+                          context.read(downloadOuterProvider.notifier).reload2(
+                              newItem: newItem,
+                              colorCategory: colorCategory
+                          );
+                          print("reloaded!");
+                          break;
+                        case 'Tops':
+                          context.read(downloadTopsProvider.notifier).reload2(
+                              newItem: newItem,
+                              colorCategory: colorCategory
+                          );
+                          print("reloaded!");
+                          break;
+                        case 'Bottoms':
+                          context.read(downloadBottomsProvider.notifier).reload2(
+                              newItem: newItem,
+                              colorCategory: colorCategory
+                          );
+                          print("reloaded!");
+                          break;
+                        case 'Shoes':
+                          context.read(downloadShoesProvider.notifier).reload2(
+                              newItem: newItem,
+                              colorCategory: colorCategory
+                          );
+                          print("reloaded!");
+                          break;
+                        default:
+                          print("No such a category. So Could'nt reload.");
+                          break;
+                      }
                     }
+                    Navigator.pop(context);
                   }
-                  Navigator.pop(context);
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.35,
