@@ -46,6 +46,8 @@ class ColorNotifier extends StateNotifier<ColorState> {
         builder: (alertContext) {
           return AlertDialog(
             title: const Text('アウターの色を選択'),
+            contentPadding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.01, horizontal: MediaQuery.of(context).size.width*0.01),
+            scrollable: true,
             content: SingleChildScrollView(
               child: MaterialPicker(
                 pickerColor: outerPicker,
@@ -73,6 +75,8 @@ class ColorNotifier extends StateNotifier<ColorState> {
       builder: (alertContext) {
         return AlertDialog(
           title: const Text('トップスの色を選択'),
+          contentPadding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.01, horizontal: MediaQuery.of(context).size.width*0.01),
+          scrollable: true,
           content: SingleChildScrollView(
             child: MaterialPicker(
               pickerColor: innerPicker,
@@ -100,6 +104,8 @@ class ColorNotifier extends StateNotifier<ColorState> {
       builder: (alertContext) {
         return AlertDialog(
           title: const Text('ボトムスの色を選択'),
+          contentPadding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.01, horizontal: MediaQuery.of(context).size.width*0.01),
+          scrollable: true,
           content: SingleChildScrollView(
             child: MaterialPicker(
               pickerColor: bottomsPicker,
@@ -127,6 +133,8 @@ class ColorNotifier extends StateNotifier<ColorState> {
       builder: (alertContext) {
         return AlertDialog(
           title: const Text('シューズの色を選択'),
+          contentPadding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.01, horizontal: MediaQuery.of(context).size.width*0.01),
+          scrollable: true,
           content: SingleChildScrollView(
             child: MaterialPicker(
               pickerColor: shoesPicker,
