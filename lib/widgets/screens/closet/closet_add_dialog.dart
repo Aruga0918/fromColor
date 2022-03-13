@@ -145,7 +145,8 @@ class ClosetAddDialog extends ConsumerWidget {
                           localImagePath: selectedImage,
                           remoteImagePath: uploadData["remoteImagePath"]!,
                           itemColorValue: selectedColor.value.toRadixString(16),
-                          fileName: uploadData["filePath"]!
+                          fileName: uploadData["filePath"]!,
+                          storePath: uploadData["filePath"]!
                       );
                       //NOTE: reload2()をよぶ
                       switch (category) {

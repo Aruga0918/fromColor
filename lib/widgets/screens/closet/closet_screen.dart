@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:from_color/models/entities/cloth_display.dart';
+import 'package:from_color/riverpods/delete_notifier.dart';
 import 'package:from_color/riverpods/download_bottoms_notifier.dart';
 import 'package:from_color/riverpods/download_outer_notifier.dart';
 import 'package:from_color/riverpods/download_shoes_notifier.dart';
@@ -16,6 +17,8 @@ class ClosetScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final bool isFirstLaunch = watch(loginProvider).isFirstLaunch;
+    final bool isEditing = watch(deleteProvider).isEditing;
+    final bool isEmpty = watch(deleteProvider).deleteItems.isEmpty;
     return isFirstLaunch
       ? FirstLaunchView()
       : Scaffold(
@@ -28,6 +31,29 @@ class ClosetScreen extends ConsumerWidget {
                 fontSize: 26
               ),
             ),
+            actions: isEditing
+            ? [
+              TextButton(
+                  onPressed: () => context.read(deleteProvider.notifier).cancel(),
+                  child: Text("キャンセル")
+              ),
+              TextButton(
+                  onPressed: () {
+                    if (isEmpty) {
+                      context.read(deleteProvider.notifier).cancel();
+                    } else {
+                      context.read(deleteProvider.notifier).deleteItems(context: context);
+                    }
+                  },
+                  child: Text("削除")
+              ),
+            ]
+            : [
+              TextButton(
+                  onPressed: () => context.read(deleteProvider.notifier).turnToEditing(),
+                  child: Text("編集")
+              )
+            ],
           ),
           body: ListView(
             children: [

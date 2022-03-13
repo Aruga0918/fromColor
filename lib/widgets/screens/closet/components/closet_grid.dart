@@ -7,6 +7,7 @@ import 'package:from_color/models/business/base64_img_converter.dart' as bc;
 import 'package:from_color/preference/shared_preference.dart';
 
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 
 class ClosetGrid extends StatelessWidget {
@@ -72,29 +73,36 @@ class ClosetGrid extends StatelessWidget {
                   }
                 } else if (snapshot.data == "remote") {
                   try {
-                    return Image.network(
-                        remoteImgPath,
+                    return CachedNetworkImage(
+                        imageUrl: remoteImgPath,
                         width: MediaQuery.of(context).size.width * 0.18,
                         height: MediaQuery.of(context).size.height * 0.1,
                         fit: BoxFit.cover,
-                        errorBuilder:
-                            (BuildContext context, Object exception, StackTrace? stackTrace) {
-                          if (fileName == null) {
-                            return Image(image: Assets.images.imageFailed);
-                          } else {
-                            ul.getImgStringDataFromLocalStorage(localPath: localKey, index: fileName!).then(
-                                    (value) {
-                                      if (value == "noData") {
-                                        return Image(image: Assets.images.imageFailed);
-                                      } else {
-                                        return bc.base64ToImgConverter(base64: value);
-                                      }
-                                    }
-                            );
-                            return Image(image: Assets.images.imageFailed);
-                          }
-                        },
+                        errorWidget: (context, url, error) => Image(image: Assets.images.imageFailed),
                     );
+                    // return Image.network(
+                    //     remoteImgPath,
+                    //     width: MediaQuery.of(context).size.width * 0.18,
+                    //     height: MediaQuery.of(context).size.height * 0.1,
+                    //     fit: BoxFit.cover,
+                    //     errorBuilder:
+                    //         (BuildContext context, Object exception, StackTrace? stackTrace) {
+                    //       if (fileName == null) {
+                    //         return Image(image: Assets.images.imageFailed);
+                    //       } else {
+                    //         ul.getImgStringDataFromLocalStorage(localPath: localKey, index: fileName!).then(
+                    //                 (value) {
+                    //                   if (value == "noData") {
+                    //                     return Image(image: Assets.images.imageFailed);
+                    //                   } else {
+                    //                     return bc.base64ToImgConverter(base64: value);
+                    //                   }
+                    //                 }
+                    //         );
+                    //         return Image(image: Assets.images.imageFailed);
+                    //       }
+                    //     },
+                    // );
                   } catch(e) {
                     print(e);
                     return Image(image: Assets.images.imageFailed);

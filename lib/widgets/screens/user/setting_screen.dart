@@ -72,7 +72,7 @@ class SettingScreen extends StatelessWidget {
                       showLicensePage(
                         context: context,
                         applicationName: "fromColor",
-                        applicationVersion: "Ver.1.0",
+                        applicationVersion: "Ver.1.3",
                         applicationIcon: Image(
                           image: Assets.icon,
                           width: MediaQuery.of(context).size.width * 0.2,

@@ -9,12 +9,14 @@ class DownloadData {
     required this.itemColorValue,
     required this.fileName,
     createdAt,
+    required this.storePath
   });
 
   final String localImagePath;
   final String remoteImagePath;
   final String itemColorValue;
   final String? fileName;
+  final String storePath;
 
   static Future<DownloadData> snapshot2DLData({required DocumentSnapshot snapshot}) async{
     final Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
@@ -22,9 +24,9 @@ class DownloadData {
         localImagePath: data["localImagePath"],
         remoteImagePath: data["remoteImagePath"],
         itemColorValue: data["itemColorValue"],
-      fileName: data["fileName"] ?? null,
+      fileName: data["fileName"] ?? null, // fileName is firebase store path.
       createdAt: data["fileName"].substring(data["fileName"].lastIndexOf("/")+1) ?? null,
-      //TODO : storePath: data["storePath"]
+      storePath: data["storePath"] ?? "noPath"
     );
   }
 

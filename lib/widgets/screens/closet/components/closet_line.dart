@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:from_color/models/entities/cloth_display.dart';
 import 'package:from_color/models/entities/download_data.dart';
+import 'package:from_color/riverpods/delete_notifier.dart';
 import 'package:from_color/riverpods/login_notifier.dart';
 import 'package:from_color/widgets/screens/closet/components/closet_grid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,6 +26,9 @@ class ClosetLine extends ConsumerWidget {
     final Map<String, List<DownloadData>> userItemsMap = watch(provider).downloadDataList;
     final List<DownloadData> userItems = ml.mapToList(map: userItemsMap);
     final bool isLogin = watch(loginProvider).isLogin;
+    final bool isEditing = watch(deleteProvider).isEditing;
+    final List<DownloadData> deleteItems = watch(deleteProvider).deleteItems;
+
 
     return Container(
       constraints: BoxConstraints(
@@ -88,13 +92,40 @@ class ClosetLine extends ConsumerWidget {
                   crossAxisSpacing: MediaQuery.of(context).size.width / 60,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return ClosetGrid(
-                      localImgPath: userItems[index].localImagePath,
-                      remoteImgPath: userItems[index].remoteImagePath,
-                      colorCode: userItems[index].itemColorValue,
-                      fileName: userItems[index].fileName,
-                      localKey: cfp.Classifier(clothCategory),
-                  );
+                  if (isEditing) {
+                    return
+                      InkWell(
+                        onTap: () => context.read(deleteProvider.notifier).addToItemList(downloadData: userItems[index]),
+                        child: Stack(
+                          children: [
+                            ClosetGrid(
+                              localImgPath: userItems[index].localImagePath,
+                              remoteImgPath: userItems[index].remoteImagePath,
+                              colorCode: userItems[index].itemColorValue,
+                              fileName: userItems[index].fileName,
+                              localKey: cfp.Classifier(clothCategory),
+                            ),
+                            Container(
+                              color: Color(0x4D000000),
+                              width: MediaQuery.of(context).size.width * 0.18,
+                              height: MediaQuery.of(context).size.height * 0.1,
+                              child: deleteItems.contains(userItems[index])
+                                ? Icon(Icons.check_circle, color: Colors.lightBlue,)
+                                : Icon(Icons.check_circle_outline, color: Colors.white10,),
+                            )
+                          ],
+                        ),
+                      );
+                  } else {
+                    return
+                      ClosetGrid(
+                        localImgPath: userItems[index].localImagePath,
+                        remoteImgPath: userItems[index].remoteImagePath,
+                        colorCode: userItems[index].itemColorValue,
+                        fileName: userItems[index].fileName,
+                        localKey: cfp.Classifier(clothCategory),
+                      );
+                  }
                 }
               )
             : Text("アイテムがありません")
