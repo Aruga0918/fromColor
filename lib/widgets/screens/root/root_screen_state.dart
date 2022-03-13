@@ -30,14 +30,19 @@ class RootScreenController extends StateNotifier<RootScreenState> with LocatorMi
   int currentIndex = 0;
 
   @override
-  void initstate() async{
+  void initState() async{
     super.initState();
 
     if (FirebaseAuth.instance.currentUser != null) {
-      read<DownloadOuterController>().initState();
-      read<DownloadTopsController>().initState();
-      read<DownloadBottomsController>().initState();
-      read<DownloadShoesController>().initState();
+      context.read(downloadOuterProvider.notifier).initState();
+      context.read(downloadTopsProvider.notifier).initState();
+      context.read(downloadBottomsProvider.notifier).initState();
+      context.read(downloadShoesProvider.notifier).initState();
+
+      // read<DownloadOuterController>().initState();
+      // read<DownloadTopsController>().initState();
+      // read<DownloadBottomsController>().initState();
+      // read<DownloadShoesController>().initState();
     }
 
     final bool? isFirstLaunch = await Preference().getBool(PreferenceKey.isInitial);

@@ -181,12 +181,22 @@ Future<Map<String, List<DownloadData>>> getCategoryItems({required String userId
   return categoryItems;
 }
 
-Future<void> deleteStorage({required String url, required BuildContext context}) async{
+Future<void> deleteStorage({required String url}) async{
   try {
     await FirebaseStorage.instance.refFromURL(url).delete();
   } catch(e) {
-    showAlertDialog(context: context);
+    print(e);
   }
+}
+
+Future<String> deleteDocument({required String path}) async{
+  final keys = path.split("/");
+  final docPath = keys.last;
+  final category = keys[2];
+  final collectionPath = path.replaceAll("/$docPath", "");
+  FirebaseFirestore.instance.collection(collectionPath).doc(docPath).delete();
+  return category;
+
 }
 
 ////////////////// Common methods //////////////////
